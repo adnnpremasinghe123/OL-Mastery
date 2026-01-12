@@ -1,0 +1,130 @@
+.teachers-page {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+  color: #1f2937;
+}
+
+.teachers-page h2 {
+  text-align: center;
+  color: #4f46e5;
+  margin-bottom: 25px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* Teacher Form */
+.teacher-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 25px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  align-items: center;
+}
+
+.teacher-form input {
+  flex: 1 1 200px;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.teacher-form input:focus {
+  outline: none;
+  border-color: #4f46e5;
+}
+
+.teacher-form button {
+  background-color: #4f46e5;
+  color: #ffffff;
+  padding: 10px 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.teacher-form button:hover {
+  background-color: #3730a3;
+  transform: translateY(-2px);
+}
+
+/* Teachers Table */
+.teachers-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.teachers-table th, .teachers-table td {
+  padding: 14px 12px;
+  text-align: left;
+}
+
+.teachers-table th {
+  background-color: #4f46e5;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.teachers-table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.teachers-table tr:hover {
+  background-color: #e0e7ff;
+}
+
+.teachers-table td button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.teachers-table td .edit-btn {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.teachers-table td .edit-btn:hover {
+  background-color: #059669;
+  transform: translateY(-2px);
+}
+
+.teachers-table td .delete-btn {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.teachers-table td .delete-btn:hover {
+  background-color: #b91c1c;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .teacher-form {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .teacher-form input {
+    width: 100%;
+  }
+}

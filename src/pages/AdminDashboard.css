@@ -1,0 +1,154 @@
+.admin-dashboard {
+  display: flex;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background-color: #f9fafb;
+}
+
+/* Sidebar */
+.admin-sidebar {
+  width: 240px;
+  background-color: #1e293b;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.admin-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.admin-sidebar li {
+  padding: 15px 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #cbd5e1;
+  transition: 0.3s;
+}
+
+.admin-sidebar li:hover,
+.admin-sidebar .active {
+  background-color: #334155;
+  color: white;
+}
+
+/* Main Content */
+.admin-main {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.stat-card h3 {
+  font-size: 22px;
+  color: #111827;
+  margin: 0;
+}
+
+.stat-card p {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Management Section */
+.management-section {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.management-section h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.management-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.management-card {
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.management-card:hover {
+  background: #e0e7ff;
+}
+
+.management-card h3 {
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.management-card p {
+  color: #4b5563;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.management-card button {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.management-card button:hover {
+  background: #4338ca;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    display: none;
+  }
+}

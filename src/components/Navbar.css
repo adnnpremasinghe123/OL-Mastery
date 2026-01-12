@@ -1,0 +1,258 @@
+/* =========================
+   OL MASTERY PROFESSIONAL NAVBAR
+========================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 50px;
+  background: linear-gradient(90deg, #031033 0%, #071a45 100%);
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* ===== Logo ===== */
+.navbar-logo img {
+  height: 130px;
+  width: auto;
+  cursor: pointer;
+  transition: transform 0.4s ease, filter 0.5s ease;
+  animation: logoFadeIn 1.2s ease-in-out;
+}
+
+.navbar-logo img:hover {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 10px #3fdcff);
+}
+
+/* ===== Links ===== */
+.navbar-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  position: relative;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #e8f0ff;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  background-color: #3fdcff;
+  transition: width 0.3s ease;
+}
+
+.navbar-links a:hover,
+.navbar-links a.active {
+  color: #3fdcff;
+}
+
+.navbar-links a:hover::after,
+.navbar-links a.active::after {
+  width: 100%;
+}
+
+/* ===== Right Section ===== */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Search bar */
+.navbar-search {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 4px 10px;
+  transition: all 0.3s ease;
+}
+
+.navbar-search input {
+  background: transparent;
+  border: none;
+  color: #e8f0ff;
+  outline: none;
+  padding: 5px;
+  width: 120px;
+  font-size: 0.9rem;
+}
+
+.navbar-search input::placeholder {
+  color: #9ab4e6;
+}
+
+.navbar-search button {
+  background: none;
+  border: none;
+  color: #3fdcff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.navbar-search button:hover {
+  transform: scale(1.2);
+}
+
+/* CTA Button */
+.navbar-btn {
+  padding: 8px 18px;
+  background-color: #3fdcff;
+  color: #031033;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.navbar-btn:hover {
+  background-color: #70e6ff;
+  transform: translateY(-2px);
+}
+
+/* ===== Hamburger ===== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background-color: #e8f0ff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ===== Animations ===== */
+@keyframes logoFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 900px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: 90px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: #031033;
+    border-top: 1px solid #0e204a;
+    padding: 25px 0;
+    display: none;
+    gap: 20px;
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .navbar-right {
+    display: none;
+  }
+}
+/* Floating Chatbot Button */
+.chatbot-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #4f46e5;
+  color: white;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 2000;
+  transition: transform 0.2s;
+}
+
+.chatbot-button:hover {
+  transform: scale(1.1);
+}
+/* Chatbot Window */
+.chatbot-window {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 280px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+  padding: 10px;
+  z-index: 2000;
+}
+
+.chatbot-window h4 {
+  margin: 0;
+  padding-bottom: 8px;
+  font-size: 16px;
+  color: #4f46e5;
+  border-bottom: 1px solid #ddd;
+}
+
+.chatbot-messages {
+  height: 200px;
+  overflow-y: auto;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.chatbot-input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  margin-top: 8px;
+}
+

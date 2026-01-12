@@ -1,0 +1,169 @@
+/* ------------------------------
+   PAGE CONTAINER         
+------------------------------ */
+.create-quiz-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: "Poppins", sans-serif;
+}
+
+/* ------------------------------
+   TITLE          
+------------------------------ */
+.create-quiz-title {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #333;
+  text-align: center;
+}
+
+/* ------------------------------
+   FORM LABELS         
+------------------------------ */
+.create-quiz-container label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* ------------------------------
+   INPUT FIELDS         
+------------------------------ */
+.create-quiz-container input,
+.create-quiz-container select,
+.create-quiz-container textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  margin-bottom: 18px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+.create-quiz-container input:focus,
+.create-quiz-container textarea:focus,
+.create-quiz-container select:focus {
+  border-color: #4a80f0;
+  box-shadow: 0 0 5px rgba(74, 128, 240, 0.3);
+  outline: none;
+}
+
+/* ------------------------------
+   QUESTION CARD         
+------------------------------ */
+.question-card {
+  padding: 20px;
+  margin-bottom: 20px;
+  background: #f7f9fc;
+  border-radius: 12px;
+  border: 1px solid #e0e6f0;
+}
+
+.question-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* ------------------------------
+   OPTIONS          
+------------------------------ */
+.option-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.option-input input {
+  flex: 1;
+}
+
+.remove-option-btn {
+  background: #dd3c3c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.remove-option-btn:hover {
+  background: #c72c2c;
+}
+
+/* ------------------------------
+   ADD OPTION BUTTON         
+------------------------------ */
+.add-option-btn {
+  background: #4a80f0;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  margin-top: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-option-btn:hover {
+  background: #3c6bd4;
+}
+
+/* ------------------------------
+   ADD QUESTION BUTTON         
+------------------------------ */
+.add-question-btn {
+  background: #22a55e;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  margin-top: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.add-question-btn:hover {
+  background: #1d8f51;
+}
+
+/* ------------------------------
+   SUBMIT BUTTON         
+------------------------------ */
+.submit-quiz-btn {
+  width: 100%;
+  background: #2c7be5;
+  color: white;
+  border: none;
+  padding: 14px 0;
+  margin-top: 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.submit-quiz-btn:hover {
+  background: #2265c7;
+}
+
+/* ------------------------------
+   ERROR MESSAGE
+------------------------------ */
+.error-message {
+  background: #ffe0e0;
+  color: #c70000;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ffb3b3;
+  font-size: 14px;
+}
