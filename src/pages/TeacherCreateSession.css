@@ -1,83 +1,118 @@
 /* TeacherCreateSession.css */
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f4f6f8;
-  margin: 0;
-  padding: 0;
+:root {
+  --primary: #6366f1;        /* Indigo */
+  --primary-dark: #4f46e5;
+  --secondary: #06b6d4;      /* Cyan */
+  --accent: #22c55e;         /* Green */
+  --background: #f1f5f9;
+  --card-bg: #ffffff;
+  --border: #e5e7eb;
+  --text-main: #111827;
+  --text-muted: #6b7280;
 }
 
+
+
+/* Container */
 .create-session-container {
-  max-width: 500px;
-  margin: 60px auto;
-  padding: 40px 30px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  max-width: 520px;
+  margin: 70px auto;
+  padding: 42px 34px;
+  background: var(--card-bg);
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.create-session-container:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+/* Decorative top bar */
+.create-session-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
 }
 
+.create-session-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+}
+
+/* Heading */
 .create-session-container h2 {
   text-align: center;
-  color: #1f2937;
-  font-size: 1.8rem;
-  margin-bottom: 25px;
+  color: var(--text-main);
+  font-size: 1.9rem;
+  margin-bottom: 30px;
+  font-weight: 700;
 }
 
+/* Inputs & Textarea */
 .create-session-container input,
 .create-session-container textarea {
   width: 100%;
-  padding: 12px 15px;
+  padding: 13px 16px;
   margin-bottom: 18px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
   font-size: 0.95rem;
+  background-color: #f9fafb;
   outline: none;
-  transition: border 0.3s, box-shadow 0.3s;
+  transition: border 0.3s, box-shadow 0.3s, background 0.3s;
 }
 
 .create-session-container input:focus,
 .create-session-container textarea:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+  border-color: var(--primary);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
 }
 
 .create-session-container textarea {
-  min-height: 100px;
+  min-height: 110px;
   resize: vertical;
 }
 
+/* Button */
 .create-session-container button {
   width: 100%;
   padding: 14px 0;
-  background-color: #4f46e5;
-  color: white;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #ffffff;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  transition: background-color 0.3s, transform 0.2s;
+  letter-spacing: 0.3px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, opacity 0.3s;
 }
 
 .create-session-container button:hover {
-  background-color: #4338ca;
   transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(99, 102, 241, 0.35);
+  opacity: 0.95;
 }
 
+/* Placeholder */
 .create-session-container input::placeholder,
 .create-session-container textarea::placeholder {
-  color: #9ca3af;
+  color: var(--text-muted);
 }
 
+/* Responsive */
 @media (max-width: 640px) {
   .create-session-container {
-    margin: 20px;
-    padding: 25px;
+    margin: 25px;
+    padding: 30px 24px;
+  }
+
+  .create-session-container h2 {
+    font-size: 1.6rem;
   }
 }

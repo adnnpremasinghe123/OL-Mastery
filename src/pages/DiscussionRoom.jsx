@@ -132,6 +132,15 @@ export default function DiscussionRoom() {
             />{" "}
             Teacher
           </label>
+            <label>
+            <input
+              type="radio"
+              value="admin"
+              checked={role === "admin"}
+              onChange={() => setRole("admin")}
+            />{" "}
+            Admin
+          </label>
         </div>
 
         <Link
@@ -191,9 +200,8 @@ export default function DiscussionRoom() {
         </div>
       </main>
 
-      {/* ------------------------------- */}
-      {/* 🔥 ACTIVE USERS SIDEBAR FIXED   */}
-      {/* ------------------------------- */}
+      
+      
       <aside className="active-users">
         <h3>Active Users</h3>
         <ul>

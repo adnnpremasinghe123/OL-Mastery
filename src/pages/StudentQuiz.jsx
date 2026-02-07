@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./StudentQuiz.css";
 
 export default function StudentQuiz() {
@@ -9,34 +10,71 @@ export default function StudentQuiz() {
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState(0);
 
-  // ----------------------------
-  // Function to generate random math/general questions
-  // ----------------------------
+  const user = JSON.parse(localStorage.getItem("user")) || {};
+  const navigate = useNavigate();
+
+  /* ---------------- Fetch Quizzes ---------------- */
+  useEffect(() => {
+    const fetchQuizzes = async () => {
+      try {
+        const res = await axios.get("http://localhost:8081/api/quizzes/all");
+        setQuizzes(res.data || []);
+      } catch (err) {
+        console.error("Error loading quizzes:", err);
+        setQuizzes([]);
+      }
+    };
+    fetchQuizzes();
+  }, []);
+
+  /* ---------------- Delete Quiz ---------------- */
+  const handleDeleteQuiz = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this quiz?")) return;
+
+    try {
+      await axios.delete(`http://localhost:8081/api/quizzes/${id}`, {
+        data: { userRole: user.role, userName: user.name },
+      });
+      setQuizzes(quizzes.filter((q) => q._id !== id));
+      alert("Quiz deleted successfully");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete quiz");
+    }
+  };
+
+  /* ---------------- Select Quiz ---------------- */
+  const handleSelectQuiz = (quiz) => {
+    if (quiz._id === "auto") {
+      setSelectedQuiz(generateRandomQuiz());
+    } else {
+      setSelectedQuiz(quiz);
+    }
+    setAnswers({});
+    setSubmitted(false);
+    setScore(0);
+  };
+
+  /* ---------------- Auto Quiz ---------------- */
   const generateRandomQuiz = () => {
-    const quizQuestions = [];
+    const questions = [];
 
-    // Example: 5 random questions
     for (let i = 0; i < 5; i++) {
-      const type = Math.random() < 0.5 ? "math" : "general";
-
-      if (type === "math") {
+      if (Math.random() < 0.5) {
         const a = Math.floor(Math.random() * 20) + 1;
         const b = Math.floor(Math.random() * 20) + 1;
         const correct = a + b;
-        const options = [
-          correct,
-          correct + 1,
-          correct - 1,
-          correct + 2,
-        ].sort(() => Math.random() - 0.5); // shuffle options
+        const options = [correct, correct + 1, correct - 1, correct + 2]
+          .sort(() => Math.random() - 0.5)
+          .map(String);
 
-        quizQuestions.push({
+        questions.push({
           question: `What is ${a} + ${b}?`,
-          options: options.map(String),
+          options,
           correctAnswer: String(correct),
         });
       } else {
-        const generalQuestions = [
+        const general = [
           {
             question: "What is the capital of France?",
             options: ["Paris", "London", "Rome", "Berlin"],
@@ -47,97 +85,98 @@ export default function StudentQuiz() {
             options: ["Mars", "Venus", "Jupiter", "Saturn"],
             correctAnswer: "Mars",
           },
-          {
-            question: "Which is a programming language?",
-            options: ["HTML", "Python", "CSS", "Photoshop"],
-            correctAnswer: "Python",
-          },
         ];
-        const randomIndex = Math.floor(Math.random() * generalQuestions.length);
-        quizQuestions.push(generalQuestions[randomIndex]);
+        questions.push(general[Math.floor(Math.random() * general.length)]);
       }
     }
 
     return {
-      _id: `auto-${Date.now()}`, // unique ID for each attempt
+      _id: `auto-${Date.now()}`,
       title: "Auto-Generated Quiz",
-      questions: quizQuestions,
+      questions,
     };
   };
 
-  // ----------------------------
-  // Fetch teacher quizzes from backend
-  // ----------------------------
-  useEffect(() => {
-    const fetchQuizzes = async () => {
-      try {
-        const res = await axios.get("http://localhost:8081/api/quizzes/all");
-        setQuizzes(res.data || []);
-      } catch (err) {
-        console.error("Error loading quizzes:", err);
-        setQuizzes([]); // fallback: empty
-      }
-    };
-    fetchQuizzes();
-  }, []);
-
-  // ----------------------------
-  // Select a quiz to attempt
-  // ----------------------------
-  const handleSelectQuiz = (quiz) => {
-    if (quiz._id.startsWith("auto")) {
-      // regenerate quiz dynamically
-      setSelectedQuiz(generateRandomQuiz());
-    } else {
-      setSelectedQuiz(quiz);
-    }
-    setAnswers({});
-    setSubmitted(false);
-    setScore(0);
-  };
-
-  const handleSelectAnswer = (qIndex, option) => {
-    setAnswers({ ...answers, [qIndex]: option });
-  };
-
-  const handleSubmit = () => {
+  /* ---------------- Submit Quiz ---------------- */
+  const handleSubmit = async () => {
     let total = 0;
-    selectedQuiz.questions.forEach((q, index) => {
-      if (answers[index] === q.correctAnswer) total += 1;
+    selectedQuiz.questions.forEach((q, i) => {
+      if (answers[i] === q.correctAnswer) total++;
     });
+
     setScore(total);
     setSubmitted(true);
+
+    try {
+      await axios.post("http://localhost:8081/api/quiz-results/submit", {
+        studentId: user._id || "guest",
+        studentName: user.name || "Guest",
+        quizId: selectedQuiz._id,
+        quizTitle: selectedQuiz.title,
+        score: total,
+        total: selectedQuiz.questions.length,
+      });
+    } catch (err) {
+      console.error("Failed to submit quiz result:", err);
+    }
   };
 
-  // ----------------------------
-  // Render quiz list or selected quiz
-  // ----------------------------
+  /* ================= QUIZ LIST PAGE ================= */
   if (!selectedQuiz) {
     return (
       <div className="student-quiz-container">
         <h2>Available Quizzes</h2>
-        {quizzes.length === 0 && <p>No quizzes available.</p>}
+
+        {user.role === "teacher" && (
+          <button
+            className="view-quiz-results-btn"
+            onClick={() => navigate("/teacher/quiz-results")}
+            style={{ marginBottom: "24px" }}
+          >
+            View Quiz Results
+          </button>
+        )}
+
         <ul className="quiz-list">
           {quizzes.map((quiz) => (
-            <li key={quiz._id}>
+            <li key={quiz._id} className="quiz-item">
               <span>{quiz.title}</span>
-              <button onClick={() => handleSelectQuiz(quiz)}>
-                Attempt Quiz
-              </button>
+
+              <div className="quiz-actions">
+                <button onClick={() => handleSelectQuiz(quiz)}>
+                  Attempt
+                </button>
+
+                {user.role === "admin" && (
+                  <>
+                    <button className="edit-btn">Edit</button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDeleteQuiz(quiz._id)}
+                    >
+                      Delete
+                    </button>
+                  </>
+                )}
+              </div>
             </li>
           ))}
-          {/* Add auto-generated quiz option */}
-          <li key="auto">
+
+          {/* Auto Quiz */}
+          <li className="quiz-item">
             <span>Auto-Generated Quiz</span>
-            <button onClick={() => handleSelectQuiz({ _id: "auto" })}>
-              Attempt Quiz
-            </button>
+            <div className="quiz-actions">
+              <button onClick={() => handleSelectQuiz({ _id: "auto" })}>
+                Attempt
+              </button>
+            </div>
           </li>
         </ul>
       </div>
     );
   }
 
+  /* ================= QUIZ ATTEMPT PAGE ================= */
   return (
     <div className="student-quiz-container">
       <h2>{selectedQuiz.title}</h2>
@@ -152,14 +191,16 @@ export default function StudentQuiz() {
             <div key={i} className="option">
               <input
                 type="radio"
-                id={`q${index}_opt${i}`}
+                id={`q${index}_${i}`}
                 name={`question_${index}`}
                 value={opt}
                 checked={answers[index] === opt}
-                onChange={() => handleSelectAnswer(index, opt)}
+                onChange={() =>
+                  setAnswers({ ...answers, [index]: opt })
+                }
                 disabled={submitted}
               />
-              <label htmlFor={`q${index}_opt${i}`}>{opt}</label>
+              <label htmlFor={`q${index}_${i}`}>{opt}</label>
             </div>
           ))}
         </div>
@@ -174,7 +215,9 @@ export default function StudentQuiz() {
           <h3>
             You scored {score} / {selectedQuiz.questions.length}
           </h3>
-          <button onClick={() => setSelectedQuiz(null)}>Back to Quizzes</button>
+          <button onClick={() => setSelectedQuiz(null)}>
+            Back to Quizzes
+          </button>
         </div>
       )}
     </div>

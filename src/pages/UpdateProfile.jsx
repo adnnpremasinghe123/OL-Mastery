@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import './UpdateProfile.css';
+import "./UpdateProfile.css";
 
 export default function UpdateProfile() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  // Load user info from localStorage
+  const storedUser = JSON.parse(localStorage.getItem("user")) || {};
+  const [user, setUser] = useState(storedUser);
+
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [editable, setEditable] = useState(false);
+  const [isDirty, setIsDirty] = useState(false); // Track if user changed any field
 
+  // Fill form with current user data
   useEffect(() => {
     if (user) {
       setForm({
@@ -14,39 +19,45 @@ export default function UpdateProfile() {
         email: user.email || "",
         password: "",
       });
+      setIsDirty(false);
     }
   }, [user]);
 
   const updateField = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setIsDirty(true);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!editable) return;
+
     const payload = {};
-    if (form.name.trim()) payload.name = form.name.trim();
-    if (form.email.trim()) payload.email = form.email.trim();
+    if (form.name.trim() && form.name.trim() !== user.name) payload.name = form.name.trim();
+    if (form.email.trim() && form.email.trim() !== user.email) payload.email = form.email.trim();
     if (form.password.trim()) payload.password = form.password.trim();
 
     if (Object.keys(payload).length === 0) {
-      return alert("Please edit at least one field to update.");
+      return alert("No changes detected.");
     }
 
     try {
+      const token = localStorage.getItem("token"); // JWT token
       const res = await axios.put(
-        `http://localhost:8081/api/users/update/${user._id}`,
-        payload
+        `http://localhost:8081/api/users/update/${user.id || user._id}`,
+        payload,
+        { headers: { Authorization: `Bearer ${token}` } } // Send JWT
       );
 
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      alert("Profile updated successfully!");
-      setForm({
-        name: res.data.user.name || "",
-        email: res.data.user.email || "",
-        password: "",
-      });
+      const updatedUser = res.data.user;
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      setUser(updatedUser);
+      setForm({ name: updatedUser.name, email: updatedUser.email, password: "" });
       setEditable(false);
+      setIsDirty(false);
+
+      alert("Profile updated successfully!");
     } catch (err) {
       console.error(err.response?.data || err.message);
       alert(err.response?.data?.error || "Error updating profile");
@@ -92,7 +103,9 @@ export default function UpdateProfile() {
             Edit
           </button>
         ) : (
-          <button type="submit">Save Changes</button>
+          <button type="submit" disabled={!isDirty}>
+            Save Changes
+          </button>
         )}
       </form>
     </div>

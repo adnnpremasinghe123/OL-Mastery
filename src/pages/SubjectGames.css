@@ -1,0 +1,76 @@
+/* Page Wrapper */
+.subject-wrapper {
+  padding: 40px 20px;
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #eef2ff, #e0f2fe);
+}
+
+.subject-title {
+  font-size: 32px;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+.subject-subtitle {
+  font-size: 16px;
+  color: #475569;
+  margin-bottom: 30px;
+}
+
+/* Back Button */
+.back-btn {
+  padding: 10px 18px;
+  background: #1e3a8a;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-btn:hover {
+  background-color: #1e40af;
+}
+
+/* Game Cards */
+.subject-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  padding: 0 20px;
+}
+
+.game-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 30px 20px;
+  border-radius: 18px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.game-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 22px rgba(0, 0, 0, 0.15);
+}
+
+.game-card h3 {
+  margin-top: 15px;
+  font-size: 20px;
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* Game Icon */
+.game-icon {
+  font-size: 45px;
+  color: #2563eb;
+}

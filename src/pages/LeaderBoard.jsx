@@ -1,91 +1,58 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { FaMedal, FaUserCircle } from "react-icons/fa";
 import "./Leaderboard.css";
 
-const API_BASE = "http://localhost:8081/api/leaderboard"; // Your endpoint
+const API_BASE = "http://localhost:8081/api/leaderboard";
 
 export default function Leaderboard() {
-  const [students, setStudents] = useState([]);
-  const [filter, setFilter] = useState("weekly");
+  const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
     fetchLeaderboard();
-  }, [filter]);
+  }, []);
 
   const fetchLeaderboard = async () => {
     try {
-      const res = await axios.get(`${API_BASE}?filter=${filter}`);
-      setStudents(res.data);
+      const res = await axios.get(API_BASE);
+      setLeaderboard(res.data);
     } catch (err) {
-      console.error(err);
-      alert("Failed to load leaderboard data");
+      console.error("Failed to fetch leaderboard", err);
     }
   };
 
-  const getRankBadge = (rank) => {
-    if (rank === 1) return "🥇";
-    if (rank === 2) return "🥈";
-    if (rank === 3) return "🥉";
-    return `#${rank}`;
+  const getMedal = (index) => {
+    if (index === 0) return <FaMedal style={{ color: "#FFD700" }} />;
+    if (index === 1) return <FaMedal style={{ color: "#C0C0C0" }} />;
+    if (index === 2) return <FaMedal style={{ color: "#CD7F32" }} />;
+    return null;
+  };
+
+  const getCardClass = (index) => {
+    if (index === 0) return "leader-card gold";
+    if (index === 1) return "leader-card silver";
+    if (index === 2) return "leader-card bronze";
+    return "leader-card";
   };
 
   return (
-    <div className="leaderboard-page">
-      <h2>Student Leaderboard</h2>
-
-      {/* Filters */}
-      <div className="filter-buttons">
-        <button
-          className={filter === "weekly" ? "active" : ""}
-          onClick={() => setFilter("weekly")}
-        >
-          Weekly
-        </button>
-
-        <button
-          className={filter === "monthly" ? "active" : ""}
-          onClick={() => setFilter("monthly")}
-        >
-          Monthly
-        </button>
-
-        <button
-          className={filter === "all" ? "active" : ""}
-          onClick={() => setFilter("all")}
-        >
-          All Time
-        </button>
-      </div>
-
-      {/* Leaderboard table */}
-      <div className="leaderboard-table">
-        {students.map((stu, index) => (
-          <div className="leaderboard-row" key={stu._id}>
-            <div className="rank">{getRankBadge(index + 1)}</div>
-
-            <div className="student-info">
-              <h4>{stu.name}</h4>
-              <p>Class: {stu.class}</p>
+    <div className="leaderboard-container">
+      <h2>🏆 OL Mastery Leaderboard</h2>
+      <div className="leaderboard-cards">
+        {leaderboard.map((user, index) => (
+          <div key={user.userId} className={getCardClass(index)}>
+            <div className="leader-rank">
+              #{index + 1} {getMedal(index)}
             </div>
-
-            <div className="stats-box">
-              <span className="label">Score</span>
-              <span className="value">{stu.score}</span>
+            <div className="leader-avatar">
+              <FaUserCircle />
             </div>
-
-            <div className="stats-box">
-              <span className="label">Quizzes</span>
-              <span className="value">{stu.quizzesDone}</span>
+            <div className="leader-info">
+              <h3>{user.userName}</h3>
+              <p>ID: {user.userId}</p>
+              <p>Score: {user.totalScore}</p>
             </div>
-
-            <div className="stats-box">
-              <span className="label">Activeness</span>
-              <span className="value">{stu.loginStreak} days 🔥</span>
-            </div>
-
-            <div className="xp-box">
-              <span>{stu.xp} XP</span>
-            </div>
+            {index > 2 && <div className="keep-going">Keep going! 🔥</div>}
           </div>
         ))}
       </div>

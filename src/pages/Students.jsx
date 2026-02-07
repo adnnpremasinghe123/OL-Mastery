@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Students.css";
 
-const API_BASE = "http://localhost:8081/api/users"; // Replace with your backend endpoint
+const API_BASE = "http://localhost:8081/api/users"; // fetch all users
 
 export default function Students() {
   const [students, setStudents] = useState([]);
-  const [formData, setFormData] = useState({ name: "", email: "", class: "" });
+  const [formData, setFormData] = useState({ name: "", email: "" });
+  const [editingStudent, setEditingStudent] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // <-- NEW
 
   useEffect(() => {
     fetchStudents();
@@ -15,7 +17,8 @@ export default function Students() {
   const fetchStudents = async () => {
     try {
       const res = await axios.get(API_BASE);
-      setStudents(res.data);
+      const studentsOnly = res.data.filter(u => u.role === "student");
+      setStudents(studentsOnly);
     } catch (err) {
       console.error(err);
       alert("Failed to fetch students");
@@ -26,11 +29,12 @@ export default function Students() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Add new student
   const handleAddStudent = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(API_BASE, formData);
-      setFormData({ name: "", email: "", class: "" });
+      await axios.post(API_BASE, { ...formData, role: "student" });
+      setFormData({ name: "", email: "" });
       fetchStudents();
     } catch (err) {
       console.error(err);
@@ -38,6 +42,7 @@ export default function Students() {
     }
   };
 
+  // Delete student
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this student?")) return;
     try {
@@ -49,11 +54,50 @@ export default function Students() {
     }
   };
 
+  // Edit student
+  const handleEdit = (student) => {
+    setEditingStudent(student);
+    setFormData({ name: student.name, email: student.email });
+  };
+
+  // Update student
+  const handleUpdateStudent = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(`${API_BASE}/${editingStudent._id}`, { ...formData, role: "student" });
+      setEditingStudent(null);
+      setFormData({ name: "", email: "" });
+      fetchStudents();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to update student");
+    }
+  };
+
+  // Filtered list based on search
+  const filteredStudents = students.filter((s) =>
+    s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    s.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="students-page">
       <h2>Manage Students</h2>
 
-      <form className="student-form" onSubmit={handleAddStudent}>
+      {/* 🔍 Search Input */}
+      <input
+        type="text"
+        className="search-box"
+        placeholder="Search by name or email..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+
+      {/* Form for add/edit */}
+      <form
+        className="student-form"
+        onSubmit={editingStudent ? handleUpdateStudent : handleAddStudent}
+      >
         <input
           type="text"
           name="name"
@@ -70,14 +114,14 @@ export default function Students() {
           onChange={handleChange}
           required
         />
-        <input
-          type="text"
-          name="class"
-          placeholder="Class"
-          value={formData.class}
-          onChange={handleChange}
-        />
-        <button type="submit">Add Student</button>
+        <button type="submit">
+          {editingStudent ? "Update Student" : "Add Student"}
+        </button>
+        {editingStudent && (
+          <button type="button" onClick={() => setEditingStudent(null)}>
+            Cancel
+          </button>
+        )}
       </form>
 
       <table className="students-table">
@@ -85,19 +129,21 @@ export default function Students() {
           <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Class</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {students.map((student) => (
+          {filteredStudents.map((student) => (
             <tr key={student._id}>
               <td>{student.name}</td>
               <td>{student.email}</td>
-              <td>{student.class}</td>
               <td>
-                <button className="edit-btn">Edit</button>
-                <button className="delete-btn" onClick={() => handleDelete(student._id)}>Delete</button>
+                <button className="edit-btn" onClick={() => handleEdit(student)}>
+                  Edit
+                </button>
+                <button className="delete-btn" onClick={() => handleDelete(student._id)}>
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

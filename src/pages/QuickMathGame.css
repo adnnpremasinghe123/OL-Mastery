@@ -1,0 +1,107 @@
+.math-game {
+  max-width: 440px;
+  margin: 40px auto;
+  padding: 28px;
+  background: linear-gradient(160deg, #020617, #1e293b);
+  color: #e5e7eb;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.45);
+  font-family: "Poppins", sans-serif;
+}
+
+.math-game h2 {
+  font-size: 1.7rem;
+  margin-bottom: 18px;
+}
+
+.math-game .info {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 10px 14px;
+  border-radius: 12px;
+  margin-bottom: 22px;
+  font-weight: bold;
+}
+
+.math-game .question {
+  font-size: 1.9rem;
+  margin: 28px 0;
+  letter-spacing: 1px;
+}
+
+.math-game input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #f8fafc;
+  margin-bottom: 15px;
+  outline: none;
+  font-size: 16px;
+}
+
+.math-game button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.math-game button:hover {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+}
+
+.math-game .game-over h3 {
+  color: #facc15;
+  margin-bottom: 15px;
+}
+
+.math-game .game-over input {
+  margin-bottom: 12px;
+}
+
+@media (max-width: 500px) {
+  .math-game {
+    padding: 20px;
+  }
+
+  .math-game h2 {
+    font-size: 1.5rem;
+  }
+
+  .math-game .question {
+    font-size: 1.6rem;
+  }
+}
+/* Back to Subjects Button */
+.nav-subject-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  background-color: #7c3aed; /* Purple */
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-subject-btn:hover {
+  background-color: #5b21b6; /* Darker purple on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.nav-subject-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+

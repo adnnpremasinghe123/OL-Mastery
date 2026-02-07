@@ -1,0 +1,49 @@
+.review-section {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.review-form textarea {
+  min-height: 80px;
+  padding: 10px;
+}
+
+.review-form button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.review-list {
+  margin-top: 30px;
+}
+
+.review-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.warning {
+  color: #d97706;
+  margin-top: 10px;
+}

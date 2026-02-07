@@ -1,0 +1,118 @@
+.vocab-game {
+  max-width: 900px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.back-btn {
+  background: #0d6efd;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.back-btn:hover {
+  background: #0b5ed7;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.score {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.game-board {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.words-column,
+.meanings-column {
+  flex: 1;
+}
+
+.words-column h3,
+.meanings-column h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.word-card {
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background: #f1f4f8;
+  text-align: center;
+  font-weight: 500;
+  cursor: default;
+  border: 1px solid #d1d9e0;
+}
+
+.word-card.matched {
+  background: #d1e7dd;
+  border-color: #0f5132;
+  color: #0f5132;
+}
+
+.meaning-card {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.meaning-card:hover {
+  background: #e2e6ea;
+}
+
+.meaning-card.matched {
+  background: #d1e7dd;
+  border-color: #0f5132;
+  color: #0f5132;
+  cursor: default;
+}
+
+.completion {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.completion h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #0d6efd;
+}
+
+.completion button {
+  padding: 10px 18px;
+  border-radius: 6px;
+  background: #0d6efd;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.completion button:hover {
+  background: #0b5ed7;
+}

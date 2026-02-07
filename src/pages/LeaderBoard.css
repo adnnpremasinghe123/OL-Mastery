@@ -1,112 +1,81 @@
-.leaderboard-page {
-  padding: 30px;
-  max-width: 1100px;
-  margin: 0 auto;
-  font-family: "Poppins", sans-serif;
-}
-
-.leaderboard-page h2 {
+.leaderboard-container {
+  max-width: 900px;
+  margin: 40px auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  font-size: 32px;
-  font-weight: 700;
-  color: #4f46e5;
-  margin-bottom: 25px;
 }
 
-/* Filter Buttons */
-.filter-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 25px;
+h2 {
+  margin-bottom: 30px;
+  color: #0d6efd;
 }
 
-.filter-buttons button {
-  padding: 10px 20px;
-  font-weight: 600;
-  border-radius: 25px;
-  border: none;
-  cursor: pointer;
-  background-color: #e5e7eb;
-  transition: 0.3s ease;
+.leaderboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
 }
 
-.filter-buttons .active {
-  background-color: #4f46e5;
-  color: white;
-  transform: scale(1.05);
-}
-
-/* Leaderboard Table */
-.leaderboard-table {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.leaderboard-row {
-  display: flex;
-  align-items: center;
-  background-color: white;
-  padding: 18px 20px;
+.leader-card {
+  background: #f8f9fa;
+  padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: 0.25s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.leaderboard-row:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+.leader-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Rank Badge */
-.rank {
-  font-size: 26px;
-  width: 50px;
+.gold {
+  background: linear-gradient(135deg, #ffd700, #fff5b1);
+}
+
+.silver {
+  background: linear-gradient(135deg, #c0c0c0, #e0e0e0);
+}
+
+.bronze {
+  background: linear-gradient(135deg, #cd7f32, #f0d7b2);
+}
+
+.leader-rank {
+  font-size: 20px;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
-/* Student Info */
-.student-info {
-  flex: 2;
+.leader-avatar {
+  font-size: 50px;
+  color: #6c757d;
+  margin-bottom: 10px;
 }
 
-.student-info h4 {
-  margin: 0;
+.leader-info h3 {
+  margin: 5px 0;
   font-size: 18px;
-  font-weight: 600;
+  color: #212529;
 }
 
-.student-info p {
-  margin: 2px 0 0;
-  color: #6b7280;
+.leader-info p {
+  margin: 2px 0;
   font-size: 14px;
+  color: #495057;
 }
 
-/* Stats Boxes */
-.stats-box {
-  text-align: center;
-  flex: 1;
-}
-
-.label {
-  display: block;
-  color: #6b7280;
-  font-size: 13px;
-}
-
-.value {
-  font-weight: 700;
-  font-size: 18px;
-  color: #111827;
-}
-
-/* XP Tag */
-.xp-box {
-  background-color: #4f46e5;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 12px;
-  font-weight: 600;
+.keep-going {
+  margin-top: 10px;
   font-size: 14px;
+  font-weight: bold;
+  color: #0d6efd;
+  animation: bounce 1s infinite alternate;
+}
+
+/* Bounce animation for motivation */
+@keyframes bounce {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-5px); }
 }

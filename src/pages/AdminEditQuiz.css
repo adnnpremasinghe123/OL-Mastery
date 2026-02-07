@@ -1,0 +1,188 @@
+/* ================================
+   QUIZ LIST PAGE
+================================ */
+.admin-quiz-container,
+.student-quiz-container {
+  width: 90%;
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #222;
+  font-weight: 600;
+}
+
+.quiz-list {
+  list-style: none;
+  padding: 0;
+}
+
+.quiz-list li {
+  background: #f8f9fa;
+  margin: 12px 0;
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.2s;
+  border: 1px solid #e5e5e5;
+}
+
+.quiz-list li:hover {
+  transform: translateY(-2px);
+  background: #eef2f5;
+}
+
+/* ================================
+   BUTTONS
+================================ */
+button {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.edit-btn {
+  background: #3498db;
+  color: white;
+  margin-left: 10px;
+}
+
+.delete-btn {
+  background: #e74c3c;
+  color: white;
+  margin-left: 10px;
+}
+
+.submit-quiz-btn {
+  background: #2ecc71;
+  color: white;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* ================================
+   STUDENT QUIZ VIEW
+================================ */
+.question-card {
+  padding: 15px;
+  background: #f4f7fb;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.question-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.option {
+  margin: 6px 0;
+}
+
+.result-box {
+  margin-top: 20px;
+  padding: 20px;
+  text-align: center;
+  background: #ecfdf5;
+  border-radius: 12px;
+  border: 1px solid #d1fae5;
+}
+
+/* ================================
+   EDIT QUIZ PAGE
+================================ */
+.edit-quiz-container {
+  width: 90%;
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.edit-question-box {
+  background: #f9fbff;
+  border: 1px solid #e1e8f0;
+  padding: 18px;
+  border-radius: 12px;
+  margin: 18px 0;
+}
+
+.edit-question-box h4 {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.edit-quiz-container textarea,
+.edit-quiz-container input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.edit-quiz-container button {
+  padding: 10px 20px;
+  font-size: 15px;
+}
+
+.edit-quiz-container button:first-of-type {
+  background: #2ecc71;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.edit-quiz-container button:last-of-type {
+  background: #e74c3c;
+  color: #fff;
+}
+
+/* ================================
+   ANIMATION
+================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================
+   MOBILE RESPONSIVE
+================================ */
+@media (max-width: 600px) {
+  .quiz-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    width: 100%;
+    margin: 8px 0 0 0;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

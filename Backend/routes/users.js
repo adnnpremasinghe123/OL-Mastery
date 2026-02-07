@@ -1,5 +1,4 @@
 import express from "express";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
@@ -11,7 +10,6 @@ router.put("/update/:id", async (req, res) => {
     const { name, email, password } = req.body;
     const updateData = {};
 
-    // Update only if field is provided
     if (name?.trim()) updateData.name = name.trim();
 
     if (email?.trim()) {
@@ -23,8 +21,7 @@ router.put("/update/:id", async (req, res) => {
     }
 
     if (password?.trim()) {
-      const salt = await bcrypt.genSalt(10);
-      updateData.password = await bcrypt.hash(password, salt);
+      updateData.password = password.trim(); // store plain password
     }
 
     if (Object.keys(updateData).length === 0) {
@@ -58,12 +55,10 @@ router.post("/register", async (req, res) => {
       if (existingUser) return res.status(400).json({ message: "Email already registered" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     const newUser = new User({
       name,
       email: email || undefined,
-      password: hashedPassword,
+      password, // store plain password
       role,
     });
 
@@ -97,8 +92,10 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne(query);
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) return res.status(400).json({ message: "Invalid credentials" });
+    // Compare plain passwords
+    if (user.password !== password) {
+      return res.status(400).json({ message: "Invalid credentials" });
+    }
 
     if (user.role !== role) return res.status(400).json({ message: "Incorrect role selected" });
 
@@ -112,6 +109,80 @@ router.post("/login", async (req, res) => {
   } catch (err) {
     console.error("Login error:", err);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+/* ============================================
+   GET ONLY STUDENTS
+=============================================== */
+router.get("/", async (req, res) => {
+  try {
+    const students = await User.find({ role: "student" }).select("name email role");
+    res.json(students);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch students", error: err.message });
+  }
+});
+
+/* ============================================
+   CREATE STUDENT
+=============================================== */
+router.post("/", async (req, res) => {
+  try {
+    const { name, email, password, role } = req.body;
+
+    if (!name || !email) {
+      return res.status(400).json({ message: "Name and email are required" });
+    }
+
+    const existing = await User.findOne({ email });
+    if (existing) return res.status(400).json({ message: "Email already exists" });
+
+    const newUser = await User.create({
+      name,
+      email,
+      password: password || "123456",
+      role: role || "student",
+    });
+
+    res.status(201).json(newUser);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error creating user" });
+  }
+});
+
+/* ============================================
+   UPDATE STUDENT
+=============================================== */
+router.put("/:id", async (req, res) => {
+  try {
+    const { name, email } = req.body;
+
+    const updated = await User.findOneAndUpdate(
+      { _id: req.params.id, role: "student" },
+      { name, email },
+      { new: true }
+    );
+
+    if (!updated) return res.status(404).json({ message: "Student not found" });
+
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to update student", error: err.message });
+  }
+});
+
+/* ============================================
+   DELETE STUDENT
+=============================================== */
+router.delete("/:id", async (req, res) => {
+  try {
+    const removed = await User.findOneAndDelete({ _id: req.params.id, role: "student" });
+    if (!removed) return res.status(404).json({ message: "Student not found" });
+    res.json({ message: "Student deleted" });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to delete student", error: err.message });
   }
 });
 

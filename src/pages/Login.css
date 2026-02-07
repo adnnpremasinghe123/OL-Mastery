@@ -1,53 +1,134 @@
+/* ---------- MAIN CONTAINER ---------- */
 .login-container {
-  max-width: 400px;
-  margin: 60px auto;
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
 }
 
-.login-container h2 {
+/* ---------- LOGIN CARD ---------- */
+.login-card {
+  width: 380px;
+  background: #ffffff;
+  padding: 35px 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.login-card h2 {
+  margin-bottom: 15px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #1a237e;
+}
+
+/* ---------- ERROR BOX ---------- */
+.error-box {
+  background: #ffebee;
+  color: #c62828;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  border-left: 4px solid #d32f2f;
+  text-align: left;
+}
+
+/* ---------- FORM ELEMENTS ---------- */
+.login-card form {
+  text-align: left;
+}
+
+.login-card label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
   color: #333;
 }
 
-.login-container form {
-  display: flex;
-  flex-direction: column;
+.login-card input,
+.login-card select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border: 1.5px solid #b0bec5;
+  border-radius: 10px;
+  outline: none;
+  font-size: 15px;
+  background: #f8fbff;
+  transition: all 0.25s ease;
 }
 
-.login-container label {
-  margin-top: 10px;
-  font-weight: 500;
+/* Input Focus Effect */
+.login-card input:focus,
+.login-card select:focus {
+  border-color: #1e88e5;
+  background: #ffffff;
+  box-shadow: 0px 0px 4px rgba(30, 136, 229, 0.4);
 }
 
-.login-container input,
-.login-container select {
-  margin-top: 5px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-button {
-  margin-top: 20px;
-  padding: 10px;
-  background: #007bff;
+/* ---------- BUTTON ---------- */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #1e88e5;
   color: white;
-  font-weight: 600;
+  font-size: 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: 0.25s ease;
+  margin-top: 10px;
 }
 
-button:hover {
-  background: #0056b3;
+.login-btn:hover {
+  background: #1565c0;
 }
-.login-container input,
-.login-container select {
-  margin-top: 5px;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+
+.login-btn:disabled {
+  background: #90caf9;
+  cursor: not-allowed;
+}
+
+/* ---------- REGISTER TEXT ---------- */
+.register-text {
+  margin-top: 18px;
+  font-size: 14px;
+  color: #555;
+}
+
+.register-text a {
+  color: #1e88e5;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- ANIMATION ---------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 450px) {
+  .login-card {
+    width: 95%;
+    padding: 25px;
+  }
 }

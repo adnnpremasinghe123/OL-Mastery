@@ -1,0 +1,92 @@
+.body-game {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background: linear-gradient(145deg, #0f172a, #1e293b);
+  color: #f8fafc;
+  border-radius: 18px;
+  text-align: center;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.4);
+  font-family: "Poppins", sans-serif;
+}
+
+.body-game h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.body-game .info {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.body-game .question p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #e5e7eb;
+  min-height: 50px;
+}
+
+.body-game input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #f8fafc;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.body-game input::placeholder {
+  color: #94a3b8;
+}
+
+.body-game button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.25s ease;
+  margin-bottom: 15px;
+}
+
+.body-game button:hover {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+.body-game .student-info {
+  margin-top: 20px;
+}
+
+.body-game .student-info input {
+  margin-bottom: 10px;
+}
+
+.body-game .student-info button {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+}
+
+.body-game .student-info button:hover {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .body-game {
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  .body-game h2 {
+    font-size: 1.5rem;
+  }
+}

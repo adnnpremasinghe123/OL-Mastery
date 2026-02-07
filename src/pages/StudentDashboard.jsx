@@ -28,6 +28,7 @@ export default function StudentDashboard() {
   const goToDiscussionRoom = () => navigate('/discussionRoom')
   const goToProfile = () => navigate('/update-profile')
   const goToLiveSessions = () => navigate('/student/sessions')
+  const goToGames = () => navigate('/games') 
 
   return (
     <div className="student-dashboard">
@@ -93,6 +94,16 @@ export default function StudentDashboard() {
           <button onClick={goToLiveSessions}>Join Live Session</button>
         </div>
       </div>
+
+         {/* ⭐ Educational Games */}
+<div className="feature-card" onClick={goToGames}>
+  <FaTrophy size={50} color="#8b5cf6" />
+  <h3>Educational Games</h3>
+  <p>Play subject-wise fun games to improve your OL knowledge.</p>
+  <button onClick={goToGames}>Play Games</button>
+</div>
+
+
 
       {/* Progress Section */}
       <div className="analytics-section">

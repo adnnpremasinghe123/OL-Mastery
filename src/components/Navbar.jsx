@@ -6,28 +6,13 @@ import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [chatOpen, setChatOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
-
-  const handleSearch = () => {
-    if (searchQuery.trim() !== "") {
-      // Navigate to search page with query as URL param
-      navigate(`/search?query=${encodeURIComponent(searchQuery)}`);
-      setSearchQuery(""); // Clear input
-      setMenuOpen(false);
-    }
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") handleSearch();
-  };
 
   return (
     <>
       <nav className="navbar">
         {/* Logo */}
-        <div className="navbar-logo">
+        <div className="navbar-logo" onClick={() => navigate("/")}>
           <img src={logo} alt="OL Mastery Logo" />
         </div>
 
@@ -46,46 +31,14 @@ const Navbar = () => {
           <li><a href="/" className="active">Home</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
+         <li><a href="/review">Review</a></li>
         </ul>
 
         {/* Right Side */}
         <div className="navbar-right">
-          <div className="navbar-search">
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleKeyPress}
-            />
-            <button onClick={handleSearch}>🔍</button>
-          </div>
           <a href="/login" className="navbar-btn">Login</a>
         </div>
       </nav>
-
-      {/* Floating Chatbot Button */}
-      <div 
-        className="chatbot-button"
-        onClick={() => setChatOpen(!chatOpen)}
-      >
-        💬
-      </div>
-
-      {/* Chatbot Window */}
-      {chatOpen && (
-        <div className="chatbot-window">
-          <h4>Chat Assistant</h4>
-          <div className="chatbot-messages">
-            <p>Hello! How can I help you today? 😊</p>
-          </div>
-          <input 
-            className="chatbot-input"
-            type="text"
-            placeholder="Type a message..."
-          />
-        </div>
-      )}
     </>
   );
 };

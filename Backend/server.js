@@ -1,22 +1,37 @@
-// server.js
+
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import http from "http";
 import cors from "cors";
-import dotenv from "dotenv";
 import mongoose from "mongoose";
-import { Server } from "socket.io";
 import path from "path";
-
-// Models
-import Message from "./models/Message.js";
 
 // Routes
 import userRoutes from "./routes/users.js";
 import quizRoutes from "./routes/quizRoutes.js";
 import resourceRoutes from "./routes/resourceRoutes.js";
 import sessionRoutes from "./routes/sessions.js";
+import teacherRoutes from "./routes/teacherRoutes.js";
+import adminRoutes from "./routes/admin.js";
+import adminsRoutes from "./routes/adminsRoutes.js";
+import quizResultRoutes from "./routes/studentQuizResultRoutes.js";
+import algebraRoutes from "./routes/algebra.routes.js";
+import mathScoreRoutes from "./routes/mathScore.routes.js";
+import bodyScoreRoutes from "./routes/bodyScore.routes.js";
+import foodChainRoutes from "./routes/foodChain.routes.js";
+import grammarFixRoutes from "./routes/grammarFix.routes.js";
+import vocabularyMatchRoutes from "./routes/vocabularyMatch.routes.js";
+import timelineRoutes from "./routes/timeline.routes.js";
+import binaryRoutes from "./routes/binaryRoutes.js";
+import leaderboardRoutes from "./routes/leaderboard.routes.js";
+import messageRoutes from "./routes/messages.js";
+import chatRoutes from "./routes/chatRoutes.js";
+import reviewRoutes from "./routes/reviewRoutes.js";
 
-dotenv.config();
+// Socket
+import initChatSocket from "./socket/chatSocket.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -26,112 +41,57 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ------------------ Serve Uploads Folder ------------------
-// Make uploads accessible via /uploads
-const __dirname = path.resolve(); // needed in ES modules
+// ------------------ Serve Uploads ------------------
+const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// ------------------ MongoDB Connection ------------------
-(async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("✅ MongoDB connected successfully");
-  } catch (err) {
-    console.error("❌ MongoDB connection error:", err);
+// ------------------ MongoDB ------------------
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => {
+    console.error("❌ MongoDB error:", err);
     process.exit(1);
-  }
-})();
+  });
 
-// ------------------ Routes ------------------
+// ✅ Debug OpenAI Key
+console.log(
+  "OPENAI KEY:",
+  process.env.OPENAI_API_KEY ? "LOADED ✅" : "MISSING ❌"
+);
+
+// ------------------ API Routes ------------------
 app.use("/api/users", userRoutes);
 app.use("/api/quizzes", quizRoutes);
 app.use("/api/resources", resourceRoutes);
 app.use("/api/sessions", sessionRoutes);
+app.use("/api", teacherRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/admins", adminsRoutes);
+app.use("/api/quiz-results", quizResultRoutes);
+app.use("/api/algebra", algebraRoutes);
+app.use("/api/math-score", mathScoreRoutes);
+app.use("/api/body-score", bodyScoreRoutes);
+app.use("/api/food-chain", foodChainRoutes);
+app.use("/api/grammar-fix", grammarFixRoutes);
+app.use("/api/vocabulary-match", vocabularyMatchRoutes);
+app.use("/api/timeline", timelineRoutes);
+app.use("/api/binary", binaryRoutes);
+app.use("/api/leaderboard", leaderboardRoutes);
+app.use("/api/messages", messageRoutes);
+app.use("/api/reviews", reviewRoutes);
 
-// ------------------ Messages REST API ------------------
-app.get("/api/messages/:subject", async (req, res) => {
-  try {
-    const messages = await Message.find({ subject: req.params.subject }).sort({ timestamp: 1 });
-    res.json(messages);
-  } catch (err) {
-    res.status(500).json({ error: "Error fetching messages" });
-  }
-});
+// ✅ Chatbot endpoint
+app.use("/chat", chatRoutes);
 
-app.delete("/api/messages/:id", async (req, res) => {
-  try {
-    const deleted = await Message.findByIdAndDelete(req.params.id);
-    if (!deleted) return res.status(404).json({ error: "Message not found" });
-
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: "Error deleting message" });
-  }
-});
-
-// ------------------ Active Users Feature ------------------
-const activeUsers = {}; // Format: { subject: [{ socketId, name }] }
-
-// ------------------ Socket.IO ------------------
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "DELETE"],
-  },
-});
-
-io.on("connection", (socket) => {
-  console.log("🟢 User connected:", socket.id);
-
-  // User joins a subject room
-  socket.on("joinRoom", ({ user, subject }) => {
-    socket.join(subject);
-    activeUsers[subject] ??= [];
-    activeUsers[subject].push({ socketId: socket.id, name: user });
-
-    io.to(subject).emit("activeUsers", activeUsers[subject]);
-    console.log(`👤 ${user} joined room: ${subject}`);
-  });
-
-  // Send message
-  socket.on("sendMessage", async (data) => {
-    try {
-      const newMessage = await Message.create(data);
-      io.to(data.subject).emit("receiveMessage", newMessage);
-    } catch (err) {
-      console.error("❌ Error saving message:", err);
-    }
-  });
-
-  // Delete message
-  socket.on("deleteMessage", async ({ messageId, subject }) => {
-    try {
-      await Message.findByIdAndDelete(messageId);
-      io.to(subject).emit("messageDeleted", messageId);
-      console.log(`🗑 Message deleted: ${messageId}`);
-    } catch (err) {
-      console.error("❌ Error deleting message:", err);
-    }
-  });
-
-  // Disconnect user
-  socket.on("disconnect", () => {
-    console.log("🔴 User disconnected:", socket.id);
-
-    Object.keys(activeUsers).forEach((subject) => {
-      activeUsers[subject] = activeUsers[subject].filter(
-        (u) => u.socketId !== socket.id
-      );
-      io.to(subject).emit("activeUsers", activeUsers[subject]);
-    });
-  });
-});
+// ------------------ Socket Initialization ------------------
+initChatSocket(server);
 
 // ------------------ Health Check ------------------
-app.get("/", (req, res) => res.send("OLMastery API running 🚀"));
+app.get("/", (req, res) => res.send("OL MASTERY API running 🚀"));
 
 // ------------------ Start Server ------------------
 const PORT = process.env.PORT || 8081;
 server.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
