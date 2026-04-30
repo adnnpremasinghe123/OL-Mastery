@@ -1,167 +1,267 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import mammoth from "mammoth";
 import "./CreateQuiz.css";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateQuiz() {
-  const [quizTitle, setQuizTitle] = useState("");
-  const [questions, setQuestions] = useState([{ question: "", options: [""], correctAnswer: "" }]);
+  const [file, setFile] = useState(null);
+  const [questions, setQuestions] = useState([]);
+  const [timeLimit, setTimeLimit] = useState(30);
   const [error, setError] = useState("");
+  const [quizzes, setQuizzes] = useState([]);
+  const [showQuizzes, setShowQuizzes] = useState(false);
+  const [title, setTitle] = useState("");
 
+  // NEW STATES
+  const [startDate, setStartDate] = useState("");
+  const [startTime, setStartTime] = useState("");
+
+  const name = localStorage.getItem("name");
   const navigate = useNavigate();
 
-  const addQuestion = (e) => {
-    e.preventDefault();
-    setQuestions([...questions, { question: "", options: [""], correctAnswer: "" }]);
-  };
+  const handleFileChange = (e) => setFile(e.target.files[0]);
 
-  const addOption = (e, qIndex) => {
-    e.preventDefault();
-    const updated = [...questions];
-    updated[qIndex].options.push("");
-    setQuestions(updated);
-  };
+  // =============================
+  // EXTRACT QUESTIONS
+  // =============================
+  const extractQuestions = (text) => {
+    const lines = text.split("\n").filter((l) => l.trim() !== "");
+    let parsed = [];
+    let current = null;
+    let extractedTimeLimit = 30;
+    let extractedTitle = "";
 
-  const removeOption = (e, qIndex, optIndex) => {
-    e.preventDefault();
-    const updated = [...questions];
-    if (updated[qIndex].options.length > 1) {
-      updated[qIndex].options.splice(optIndex, 1);
-      setQuestions(updated);
-    }
-  };
+    lines.forEach((line, index) => {
+      line = line.trim();
 
-  const changeQuestionText = (qIndex, value) => {
-    const updated = [...questions];
-    updated[qIndex].question = value;
-    setQuestions(updated);
-  };
+      // TITLE
+      if (index === 0 || /^title\s*:/i.test(line)) {
+        extractedTitle = line.replace(/^title\s*:/i, "").trim();
+        return;
+      }
 
-  const changeOptionText = (qIndex, optIndex, value) => {
-    const updated = [...questions];
-    updated[qIndex].options[optIndex] = value;
-    setQuestions(updated);
-  };
+      // TIME
+      if (/^(Time|Duration)\s*:/i.test(line)) {
+        const limit = parseInt(line.split(":")[1]?.trim());
+        if (!isNaN(limit)) extractedTimeLimit = limit;
+        return;
+      }
 
-  const setCorrectAnswer = (qIndex, value) => {
-    const updated = [...questions];
-    updated[qIndex].correctAnswer = value;
-    setQuestions(updated);
-  };
+      // QUESTION
+      if (/^\d+\./.test(line)) {
+        if (current) parsed.push(current);
+        current = {
+          question: line.replace(/^\d+\.\s*/, ""),
+          options: [],
+          correctAnswer: "",
+        };
+      }
+      // OPTIONS
+      else if (/^[A-D][\).\s]/.test(line)) {
+        current?.options.push(line.replace(/^[A-D][\).\s]*/, "").trim());
+      }
+      // ANSWER
+      else if (line.toLowerCase().includes("answer")) {
+        const key = line.split(":")[1]?.trim();
+        const map = { A: 0, B: 1, C: 2, D: 3 };
+        if (map[key] !== undefined && current) {
+          current.correctAnswer = current.options[map[key]];
+        }
+      }
+    });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!quizTitle.trim()) return setError("Quiz title is required.");
-    for (let q of questions) {
-      if (!q.question.trim()) return setError("All questions must have text.");
-      if (q.options.some((opt) => !opt.trim())) return setError("All options must be filled.");
-      if (!q.correctAnswer) return setError("Each question must have a correct answer.");
-    }
-
+    if (current) parsed.push(current);
+    setQuestions(parsed);
+    setTimeLimit(extractedTimeLimit);
+    setTitle(extractedTitle || "Untitled Quiz");
     setError("");
+  };
+
+  // =============================
+  // FILE UPLOAD
+  // =============================
+  const handleFileUpload = async () => {
+    if (!file) return setError("Upload a file first");
+
+    const type = file.name.split(".").pop().toLowerCase();
 
     try {
-      const user = JSON.parse(localStorage.getItem("user")) || {};
-      const quizData = {
-        title: quizTitle,
-        questions: questions.map((q) => ({
-          question: q.question,
-          options: q.options,
-          correctAnswer: q.correctAnswer,
-        })),
-        userName: user.name || "Teacher",
-        userRole: user.role || "teacher",
-      };
-
-      await axios.post("http://localhost:8081/api/quizzes", quizData);
-
-      alert("Quiz created successfully!");
-      setQuizTitle("");
-      setQuestions([{ question: "", options: [""], correctAnswer: "" }]);
+      if (type === "html") {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const doc = new DOMParser().parseFromString(
+            e.target.result,
+            "text/html"
+          );
+          extractQuestions(doc.body.innerText);
+        };
+        reader.readAsText(file);
+      } else if (type === "docx") {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const result = await mammoth.extractRawText({
+            arrayBuffer: e.target.result,
+          });
+          extractQuestions(result.value);
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        setError("Only HTML or DOCX allowed");
+      }
     } catch (err) {
-      console.error("Quiz Create Error:", err.response?.data || err);
-      alert(err.response?.data?.message || "Failed to create quiz");
+      console.error(err);
+      setError("File processing error");
+    }
+  };
+
+  // =============================
+  // SHUFFLE
+  // =============================
+  const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
+
+  // =============================
+  // SAVE QUIZ
+  // =============================
+  const handleSaveQuiz = async () => {
+    if (!startDate || !startTime) {
+      return setError("Please select date and time");
+    }
+
+    try {
+      const cleanQuestions = questions.map((q) => {
+        const shuffled = shuffle(q.options);
+        const correct = shuffled.find(
+          (opt) => opt.trim() === q.correctAnswer.trim()
+        );
+        return { question: q.question, options: shuffled, correctAnswer: correct };
+      });
+
+      await axios.post("http://localhost:8081/api/quizzes", {
+        title,
+        questions: cleanQuestions,
+        name,
+        timeLimit,
+        startDate,
+        startTime,
+      });
+
+      alert("Quiz Saved & Emails Sent!");
+      setQuestions([]);
+      setTitle("");
+      setStartDate("");
+      setStartTime("");
+    } catch (err) {
+      console.error(err.response?.data || err);
+      setError(err.response?.data?.message || "Save failed");
+    }
+  };
+
+  // =============================
+  // FETCH QUIZZES
+  // =============================
+  const handleShowQuizzes = async () => {
+    try {
+      const res = await axios.get("http://localhost:8081/api/quizzes/all");
+      const teacherQuizzes = res.data.filter((q) => q.createdBy === name);
+      setQuizzes(teacherQuizzes);
+      setShowQuizzes(true);
+    } catch (err) {
+      setError("Failed to fetch quizzes");
+    }
+  };
+
+  // =============================
+  // DELETE QUIZ
+  // =============================
+  const handleDeleteQuiz = async (quizId) => {
+    if (!window.confirm("Are you sure you want to delete this quiz?")) return;
+
+    try {
+      await axios.delete(`http://localhost:8081/api/quizzes/${quizId}`);
+      setQuizzes(quizzes.filter((q) => q._id !== quizId));
+      alert("Quiz deleted successfully!");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete quiz");
     }
   };
 
   return (
     <div className="create-quiz-container">
-      <h2>Create New Quiz</h2>
+      <h2>Create Quiz</h2>
 
-      <button className="view-quizzes-btn" onClick={() => navigate("/student/quiz/:id")}>
-        View Quizzes
-      </button>
+      <input type="file" onChange={handleFileChange} />
 
-      {error && <div className="error-message">{error}</div>}
+      <div style={{ marginTop: "15px" }}>
+        <button onClick={handleFileUpload}>Convert</button>
+        <button onClick={() => navigate("/student/quiz/:id")}>
+          Go to Student Page
+        </button>
+      </div>
 
-      <div className="form-group">
-        <label>Quiz Title</label>
+      <div style={{ marginTop: "15px" }}>
+        <label>Quiz Date:</label>
         <input
-          type="text"
-          value={quizTitle}
-          placeholder="Enter quiz title"
-          onChange={(e) => setQuizTitle(e.target.value)}
-          className="quiz-title-input"
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
+        <label style={{ marginLeft: "10px" }}>Start Time:</label>
+        <input
+          type="time"
+          value={startTime}
+          onChange={(e) => setStartTime(e.target.value)}
         />
       </div>
 
-      {questions.map((q, qIndex) => (
-        <div key={qIndex} className="question-card">
-          <div className="question-header">
-            <h4>Question {qIndex + 1}</h4>
-          </div>
-          <input
-            type="text"
-            placeholder="Enter question"
-            value={q.question}
-            onChange={(e) => changeQuestionText(qIndex, e.target.value)}
-            className="question-input"
-          />
+      {error && <p className="error">{error}</p>}
 
-          <div className="options-section">
-            <label>Options</label>
-            {q.options.map((opt, optIndex) => (
-              <div key={optIndex} className="option-row">
-                <input
-                  type="text"
-                  placeholder={`Option ${optIndex + 1}`}
-                  value={opt}
-                  onChange={(e) => changeOptionText(qIndex, optIndex, e.target.value)}
-                  className="option-input-field"
-                />
-                <button className="remove-option-btn" onClick={(e) => removeOption(e, qIndex, optIndex)}>
-                  ✕
-                </button>
-              </div>
-            ))}
-            <button className="add-option-btn" onClick={(e) => addOption(e, qIndex)}>
-              + Add Option
-            </button>
-          </div>
+      {title && <h3 className="quiz-title">{title}</h3>}
 
-          <div className="correct-answer-section">
-            <label>Correct Answer</label>
-            <select value={q.correctAnswer} onChange={(e) => setCorrectAnswer(qIndex, e.target.value)}>
-              <option value="">Select Answer</option>
-              {q.options.map((opt, i) => (
-                <option key={i} value={opt}>
-                  {opt || `Option ${i + 1}`}
-                </option>
-              ))}
-            </select>
-          </div>
+      {questions.map((q, i) => (
+        <div key={i} className="question-block">
+          <h4>{q.question}</h4>
+          {q.options.map((o, j) => (
+            <p key={j} className={o === q.correctAnswer ? "correct" : "incorrect"}>
+              {o}
+            </p>
+          ))}
         </div>
       ))}
 
-      <div className="quiz-actions">
-        <button className="add-question-btn" onClick={addQuestion}>
-          + Add New Question
-        </button>
-        <button className="submit-quiz-btn" onClick={handleSubmit}>
-          Save Quiz
-        </button>
-      </div>
+      {questions.length > 0 && (
+        <button onClick={handleSaveQuiz}>Save Quiz (Time: {timeLimit} mins)</button>
+      )}
+
+      <hr />
+
+      <button onClick={handleShowQuizzes}>Show My Quizzes</button>
+
+      {showQuizzes &&
+        quizzes.map((quiz) => (
+          <div key={quiz._id} className="question-block">
+            <h4>{quiz.title}</h4>
+            <p>Teacher: {name}</p>
+            <p>Questions: {quiz.questions.length}</p>
+            <p>Time: {quiz.timeLimit} mins</p>
+            <p>Start: {new Date(quiz.startTime).toLocaleString()}</p>
+            <button
+              onClick={() => handleDeleteQuiz(quiz._id)}
+              style={{
+                marginTop: "5px",
+                padding: "5px 10px",
+                background: "#ef4444",
+                color: "white",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+              }}
+            >
+              Delete Quiz
+            </button>
+          </div>
+        ))}
     </div>
   );
 }

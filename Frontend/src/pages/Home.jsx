@@ -1,175 +1,204 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FaChalkboardTeacher, FaTrophy, FaBook, FaUsers, FaArrowRight } from 'react-icons/fa';
-import './Home.css';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import {
+  FaClipboardList,
+  FaBook,
+  FaTrophy,
+  FaComments,
+  FaVideo,
+  FaChalkboardTeacher
+} from "react-icons/fa";
+import "./Home.css";
 
 export default function Home() {
+
+  // Slider
   const slides = [
     {
-      // Using placeholder images here. Replace with your actual asset paths.
-      image: 'https://via.placeholder.com/1200x600/6366f1/ffffff?text=Interactive+Learning', 
-      caption: 'Join Interactive Learning Sessions'
+      title: "O/L Digital Learning Platform",
+      text: "A complete learning system designed for Sri Lankan students and teachers.",
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV7cTtUSrsjQa-vslu4Ec1vBhoAsFRQ6HwVA&s"
     },
     {
-      image: 'https://via.placeholder.com/1200x600/a855f7/ffffff?text=Track+Progress',
-      caption: 'Track Your Progress & Improve Grades'
+      title: "Attend Live Classes Anywhere",
+      text: "Join online sessions and learn from expert teachers.",
+      img: "https://images.unsplash.com/photo-1588072432836-e10032774350"
     },
     {
-      image: 'https://via.placeholder.com/1200x600/d946ef/ffffff?text=Connect+Teachers',
-      caption: 'Connect with Qualified Teachers'
+      title: "Practice With Quizzes & Games",
+      text: "Improve performance using quizzes, challenges and rankings.",
+      img: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b"
     }
   ];
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [index, setIndex] = useState(0);
+  const [feedbacks, setFeedbacks] = useState([]);
 
+  // Fetch feedbacks from backend
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [slides.length]);
+    const fetchFeedbacks = async () => {
+      try {
+        const res = await axios.get("http://localhost:8081/api/feedback");
+        setFeedbacks(res.data);
+      } catch (error) {
+        console.error("Error fetching feedback:", error);
+      }
+    };
+    fetchFeedbacks();
+  }, []);
+
+  // Slider auto-change
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex(prev => (prev + 1) % slides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="home-wrapper">
-      {/* Animated Background Elements */}
-      <div className="blob blob-1"></div>
-      <div className="blob blob-2"></div>
 
-      {/* Hero Section */}
-      <section className="hero-visual">
-        <div className="hero-inner">
-          <span className="badge">Next-Gen Learning Platform</span>
-          <h1 className="glitch-text">
-            Master Your O/Ls <br /> 
-            <span className="gradient-text">Beyond the Classroom.</span>
-          </h1>
-          <p className="hero-subtitle">
-            An immersive digital ecosystem designed for the modern Sri Lankan student. 
-            Track, compete, and excel with AI-driven insights.
-          </p>
-          <div className="hero-actions">
-            <Link to="/login" className="glass-btn primary">
-              Start Journey <FaArrowRight />
-            </Link>
-            <Link to="/about" className="glass-btn secondary">Explore Features</Link>
-          </div>
-        </div>
-        
-        {/* Floating Stats Card - Rare Visual Element */}
-        <div className="floating-stats">
-          <div className="stat-item">
-            <strong>15k+</strong>
-            <span>Active Students</span>
-          </div>
-          <div className="stat-divider"></div>
-          <div className="stat-item">
-            <strong>98%</strong>
-            <span>Pass Rate</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Slideshow Section - Now with a more integrated look */}
-      <section className="slideshow-integrated">
-        {slides.map((slide, index) => (
+      {/* HERO SLIDER */}
+      <section className="hero-clean">
+        {slides.map((slide, i) => (
           <div
-            key={index}
-            className={`slide-item ${index === currentIndex ? 'active' : ''}`}
-          >
-            <div className="slide-content">
-              <img src={slide.image} alt={slide.caption} className="slide-image"/>
-              <div className="slide-caption-overlay">
-                <h3>{slide.caption}</h3>
-              </div>
-            </div>
-          </div>
+            key={i}
+            className={`hero-slide ${i === index ? "active" : ""}`}
+            style={{ backgroundImage: `url(${slide.img})` }}
+          />
         ))}
-        <div className="slideshow-dots">
-          {slides.map((_, index) => (
-            <span
-              key={index}
-              className={`dot ${index === currentIndex ? 'active' : ''}`}
-              onClick={() => setCurrentIndex(index)}
-            ></span>
-          ))}
-        </div>
-      </section>
 
-      {/* Features Grid with Images */}
-      <section className="feature-grid-section">
-        <div className="section-header">
-          <h2>Elevate Your Experience</h2>
-          <p>Everything you need to dominate your exams in one place.</p>
-        </div>
+        <div className="hero-overlay"></div>
 
-        <div className="rare-grid">
-          <div className="feature-tile">
-            <img src="src/assets/teacher.jpg" alt="Interactive Lessons" className="feature-image"/>
-            <div className="tile-content">
-              <div className="icon-box purple"><FaChalkboardTeacher /></div>
-              <h3>Live Interaction</h3>
-              <p>Real-time synchronization with expert tutors and peer groups.</p>
-            </div>
-          </div>
-          <div className="feature-tile tall">
-            <img src="src/assets/leaderboard.avif" alt="Leaderboard & Motivation" className="feature-image"/>
-            <div className="tile-content">
-              <div className="icon-box gold"><FaTrophy /></div>
-              <h3>The Arena</h3>
-              <p>Gamified leaderboards that turn studying into a rewarding challenge.</p>
-            </div>
-          </div>
-          <div className="feature-tile">
-            <img src="https://via.placeholder.com/300x200/10b981/ffffff?text=Resources" alt="Learning Resources" className="feature-image"/>
-            <div className="tile-content">
-              <div className="icon-box green"><FaBook /></div>
-              <h3>Resource Vault</h3>
-              <p>Unrestricted access to premium notes and past paper analysis.</p>
-            </div>
-          </div>
-          <div className="feature-tile">
-            <img src="https://via.placeholder.com/300x200/ec4899/ffffff?text=AdminTools" alt="Admin & Teacher Tools" className="feature-image"/>
-            <div className="tile-content">
-              <div className="icon-box pink"><FaUsers /></div>
-              <h3>Admin Suite</h3>
-              <p>Powerful analytics for educators to monitor student growth.</p>
-            </div>
+        <div className="hero-inner">
+          <h1>{slides[index].title}</h1>
+          <p>{slides[index].text}</p>
+
+          <div className="hero-buttons">
+            <Link to="/login" className="primary-btn">
+              Student Login
+            </Link>
+            <Link to="/about" className="secondary-btn">
+              Learn More
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Modern Testimonial Slider with Avatars */}
-      <section className="modern-testimonials">
-        <div className="section-header">
-          <h2>What Our Achievers Say</h2>
-          <p>Inspiring stories from students who transformed their O/L journey.</p>
+      {/* INTRO */}
+      <section className="intro-section">
+        <h2>Everything Needed for O/L Success</h2>
+        <p>
+          This platform connects students and teachers through structured
+          learning tools that support exam preparation and performance monitoring.
+        </p>
+      </section>
+
+      {/* FEATURES */}
+      <section className="features-clean">
+        <div className="feature-grid">
+          <Feature icon={<FaClipboardList />} title="Quizzes & Challenges"
+            text="Students can attempt subject quizzes and improve knowledge." />
+
+          <Feature icon={<FaTrophy />} title="Leaderboard"
+            text="Rankings help students stay motivated and monitor performance." />
+
+          <Feature icon={<FaBook />} title="Learning Resources"
+            text="Access notes, model papers, tutorials, and study guides anytime." />
+
+          <Feature icon={<FaComments />} title="Discussion Rooms"
+            text="Students and teachers can communicate and share knowledge." />
+
+          <Feature icon={<FaVideo />} title="Live Online Classes"
+            text="Teachers schedule sessions and students can join in real time." />
+
+          <Feature icon={<FaChalkboardTeacher />} title="Teacher Management"
+            text="Teachers upload materials and monitor student progress easily." />
         </div>
-        <div className="testimonial-track">
-          {[
-            { quote: "This platform changed how I look at Mathematics. The interactive tools are a game changer.", name: "Aisha R.", avatar: "https://via.placeholder.com/50/FF6B6B/FFFFFF?text=AR" },
-            { quote: "I never thought learning could be this engaging. My science grades soared!", name: "Nimal S.", avatar: "https://via.placeholder.com/50/4ECDC4/FFFFFF?text=NS" },
-            { quote: "The past paper explanations are incredibly detailed. Helped me understand complex topics.", name: "Priya L.", avatar: "https://via.placeholder.com/50/45B7D1/FFFFFF?text=PL" },
-            { quote: "Seeing my ranking motivated me to push harder every week. Highly recommend!", name: "Kumar M.", avatar: "https://via.placeholder.com/50/FFA07A/FFFFFF?text=KM" }
-          ].map((testimonial, i) => (
-            <div key={i} className="glass-card testimonial-card-fancy">
-              <div className="quote-icon">“</div>
-              <p>{testimonial.quote}</p>
-              <div className="user-info">
-                <img src={testimonial.avatar} alt={testimonial.name} className="avatar"/>
-                <span>{testimonial.name}</span>
+      </section>
+
+      {/* ROLES */}
+      <section className="roles-section">
+        <Role title="For Students" items={[
+          "Attempt quizzes & games",
+          "Join live classes",
+          "Access study materials",
+          "Track progress & ranking",
+          "View leaderboard"
+        ]} />
+
+        <Role title="For Teachers" items={[
+          "Create live sessions",
+          "Share resources",
+          "Guide students",
+          "Monitor performance"
+        ]} />
+
+        <Role title="For Admins" items={[
+          "Create live sessions",
+          "Share resources",
+          "Guide students",
+          "Monitor performance",
+          "Manage students",
+          "Manage teachers"
+        ]} />
+      </section>
+
+      {/* STUDENT FEEDBACK */}
+      <section className="home-feedback-section">
+        <h2>Student Feedback</h2>
+        {feedbacks.length === 0 ? (
+          <p>No feedback submitted yet.</p>
+        ) : (
+          <div className="feedback-list">
+            {feedbacks.map(fb => (
+              <div key={fb._id} className="feedback-card">
+                <h4>{fb.studentName}</h4>
+                <p>Rating: {"⭐".repeat(fb.rating)}</p>
+                <p>{fb.message}</p>
+                <small>{new Date(fb.date).toLocaleString()}</small>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </section>
 
-      {/* Minimalist CTA */}
-      <section className="final-cta">
-        <div className="cta-content">
-          <h2>Ready to redefine your future?</h2>
-          <Link to="/login" className="glow-btn">Join Now</Link>
-        </div>
+      {/* CTA */}
+      <section className="cta-clean">
+        <h2>Start Learning Today</h2>
+        <p>
+          Join the platform and improve your O/L preparation with structured digital learning.
+        </p>
+        <Link to="/login" className="primary-btn">
+          Get Started
+        </Link>
       </section>
+
+    </div>
+  );
+}
+
+/* SMALL COMPONENTS */
+function Feature({ icon, title, text }) {
+  return (
+    <div className="feature-card">
+      <div className="feature-icon">{icon}</div>
+      <h3>{title}</h3>
+      <p>{text}</p>
+    </div>
+  );
+}
+
+function Role({ title, items }) {
+  return (
+    <div className="role-box">
+      <h3>{title}</h3>
+      <ul>
+        {items.map((it, i) => (
+          <li key={i}>✔ {it}</li>
+        ))}
+      </ul>
     </div>
   );
 }

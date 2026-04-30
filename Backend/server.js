@@ -28,7 +28,9 @@ import binaryRoutes from "./routes/binaryRoutes.js";
 import leaderboardRoutes from "./routes/leaderboard.routes.js";
 import messageRoutes from "./routes/messages.js";
 import chatRoutes from "./routes/chatRoutes.js";
-import reviewRoutes from "./routes/reviewRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
+import feedbackRoutes from "./routes/feedbackRoutes.js";
+
 
 // Socket
 import initChatSocket from "./socket/chatSocket.js";
@@ -79,7 +81,11 @@ app.use("/api/timeline", timelineRoutes);
 app.use("/api/binary", binaryRoutes);
 app.use("/api/leaderboard", leaderboardRoutes);
 app.use("/api/messages", messageRoutes);
-app.use("/api/reviews", reviewRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/feedback", feedbackRoutes);
+
+app.use(express.urlencoded({ extended: true })); // REQUIRED for PayHere notify
+app.use(express.json());
 
 // ✅ Chatbot endpoint
 app.use("/chat", chatRoutes);

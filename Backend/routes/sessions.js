@@ -15,8 +15,9 @@ router.post("/", async (req, res) => {
       description: req.body.description,
       date: req.body.date,
       time: req.body.time,
+      payment: req.body.payment,
       meetingLink: req.body.meetingLink,
-      createdBy: req.body.createdBy, // now sent from frontend
+      createdBy: req.body.createdBy,
     };
 
     const session = await Session.create(data);
@@ -34,6 +35,7 @@ A new learning session has been created by ${session.createdBy}.
 📝 Title: ${session.title}
 📅 Date: ${session.date}
 ⏰ Time: ${session.time}
+💰 Payment: ${session.payment}
 🔗 Join Link: ${session.meetingLink}
 
 Don't miss it!
@@ -60,6 +62,25 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch sessions" });
   }
 });
+/* =====================================================
+   GET REQUESTED SESSION 
+   ===================================================== */
+
+router.get("/:id", async (req, res) => {
+  try {
+    const session = await Session.findById(req.params.id);
+
+    if (!session) {
+      return res.status(404).json({ message: "Session not found" });
+    }
+
+    res.json(session);
+
+  } catch (err) {
+    console.error("GET SESSION ERROR:", err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
 
 /* =====================================================
    DELETE SESSION
@@ -69,6 +90,9 @@ router.delete("/:id", async (req, res) => {
     const session = await Session.findById(req.params.id);
     if (!session)
       return res.status(404).json({ message: "Session not found" });
+    if (session.createdBy !== req.body.userName)
+      return res.status(403).json({ message: "Not authorized" });
+
 
     await Session.findByIdAndDelete(req.params.id);
     res.json({ message: "Session deleted successfully" });
@@ -92,6 +116,7 @@ router.put("/:id", async (req, res) => {
       description: req.body.description,
       date: req.body.date,
       time: req.body.time,
+      payment: req.body.payment,
       meetingLink: req.body.meetingLink,
     };
 

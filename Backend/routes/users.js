@@ -58,7 +58,7 @@ router.post("/register", async (req, res) => {
     const newUser = new User({
       name,
       email: email || undefined,
-      password, // store plain password
+      password, 
       role,
     });
 
@@ -92,7 +92,7 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne(query);
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
-    // Compare plain passwords
+    
     if (user.password !== password) {
       return res.status(400).json({ message: "Invalid credentials" });
     }

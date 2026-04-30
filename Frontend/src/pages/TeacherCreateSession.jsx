@@ -5,13 +5,14 @@ import "./TeacherCreateSession.css";
 
 export default function TeacherCreateSession() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user")); // { name, role }
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [form, setForm] = useState({
     title: "",
     description: "",
     date: "",
     time: "",
+    payment: "",
     meetingLink: "",
   });
 
@@ -84,13 +85,19 @@ export default function TeacherCreateSession() {
         value={form.meetingLink}
         onChange={handleChange}
       />
+      <input
+        name="payment"
+        placeholder="Payment Amount (RS)"
+        value={form.payment}
+        onChange={handleChange}
+      />
 
       {/* Action Buttons */}
       <div className="form-actions">
         <button className="primary-btn" onClick={createSession}>
           Create Session
         </button>
-
+    
         <button
           className="secondary-btn"
           onClick={() => navigate("/student/sessions")}

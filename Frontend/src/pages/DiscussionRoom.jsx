@@ -29,10 +29,6 @@ export default function DiscussionRoom() {
     "Buddhism",
     "IT"
   ];
-
-  // -------------------------
-  // JOIN ROOM + LISTEN EVENTS
-  // -------------------------
   useEffect(() => {
     socket.emit("joinRoom", { subject: selectedSubject, user: userName });
 
@@ -48,9 +44,9 @@ export default function DiscussionRoom() {
       setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
     });
 
-    // 🔥 FIXED: Listen for correct event "activeUsers"
+   
     socket.on("activeUsers", (users) => {
-      setActiveUsers(users); // users = [{ socketId, name }]
+      setActiveUsers(users);
     });
 
     return () => {

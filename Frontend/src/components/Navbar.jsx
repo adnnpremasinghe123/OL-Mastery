@@ -31,7 +31,7 @@ const Navbar = () => {
           <li><a href="/" className="active">Home</a></li>
           <li><a href="/about">About</a></li>
           <li><a href="/contact">Contact</a></li>
-         <li><a href="/review">Review</a></li>
+         
         </ul>
 
         {/* Right Side */}

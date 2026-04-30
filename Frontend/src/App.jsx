@@ -35,7 +35,10 @@ import GrammarFixgame from "./pages/GrammarFixgame";
 import VocabularyMatchGame from "./pages/VocabularyMatchGame";
 import TimelineSortGame from "./pages/TimelineSortGame";
 import BinaryGame from './pages/BinaryGame';
-import ReviewSection from "./pages/ReviewSection";
+import PaymentPage from './pages/PaymentPage';
+import TeacherEditSession from "./pages/TeacherEditSession";
+import  MyQuizResults from "./pages/MyQuizResults";
+
 
 function App() {
   return (
@@ -47,7 +50,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/review" element={<ReviewSection />} />
+        
 
         {/* AUTH */}
         <Route path="/login" element={<Login />} />
@@ -66,6 +69,7 @@ function App() {
         <Route path="/teacher/create-quiz" element={<CreateQuiz />} />
         <Route path="/student/quiz/:id" element={<StudentQuiz />} />
         <Route path="/teacher/quiz-results" element={<QuizResults />} /> 
+        <Route path="/my-quiz-results" element={< MyQuizResults />} />
 
         {/* PROFILE */}
         <Route path="/update-profile" element={<UpdateProfile />} />
@@ -82,6 +86,8 @@ function App() {
         {/* TEACHER & STUDENT SESSIONS */}
         <Route path="/teacher/session" element={<TeacherCreateSession />} />
         <Route path="/student/sessions" element={<StudentViewSessions />} />
+         <Route path="/payment/:sessionId" element={<PaymentPage />} />
+         <Route path="/edit-session/:id" element={<TeacherEditSession />} />
 
         {/* ADMIN ROUTES */}
         <Route path="/admin/add-admin" element={<AddAdmin />} />
