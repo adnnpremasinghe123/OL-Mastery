@@ -8,7 +8,6 @@ export default function Chatbot() {
   const [open, setOpen] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Scroll to bottom whenever messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -17,12 +16,17 @@ export default function Chatbot() {
     if (!input.trim()) return;
 
     const userMessage = input;
-    setMessages((prev) => [...prev, { sender: "user", text: userMessage }]);
+
+    setMessages((prev) => [
+      ...prev,
+      { sender: "user", text: userMessage },
+    ]);
+
     setInput("");
 
     try {
-      // Use the same port as your server
-      const res = await axios.post("http://localhost:8081/chat", {
+    
+      const res = await axios.post("http://localhost:8081/api/chat", {
         message: userMessage,
       });
 
@@ -30,11 +34,12 @@ export default function Chatbot() {
         ...prev,
         { sender: "bot", text: res.data.reply },
       ]);
-    } catch (err) {
-      console.error("Server error:", err);
+    } catch (error) {
+      console.error(error);
+
       setMessages((prev) => [
         ...prev,
-        { sender: "bot", text: "Error: Could not reach server." },
+        { sender: "bot", text: "Error: Unable to get response" },
       ]);
     }
   };
@@ -74,10 +79,7 @@ export default function Chatbot() {
       )}
 
       {!open && (
-        <button
-          className="chatbot-open-btn"
-          onClick={() => setOpen(true)}
-        >
+        <button className="chatbot-open-btn" onClick={() => setOpen(true)}>
           💬
         </button>
       )}

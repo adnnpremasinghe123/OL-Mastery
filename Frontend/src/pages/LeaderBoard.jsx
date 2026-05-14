@@ -25,36 +25,60 @@ export default function Leaderboard() {
     if (index === 0) return <FaMedal style={{ color: "#FFD700" }} />;
     if (index === 1) return <FaMedal style={{ color: "#C0C0C0" }} />;
     if (index === 2) return <FaMedal style={{ color: "#CD7F32" }} />;
-    return null;
-  };
-
-  const getCardClass = (index) => {
-    if (index === 0) return "leader-card gold";
-    if (index === 1) return "leader-card silver";
-    if (index === 2) return "leader-card bronze";
-    return "leader-card";
+    return `#${index + 1}`;
   };
 
   return (
     <div className="leaderboard-container">
       <h2>🏆 OL Mastery Leaderboard</h2>
-      <div className="leaderboard-cards">
-        {leaderboard.map((user, index) => (
-          <div key={user.userId} className={getCardClass(index)}>
-            <div className="leader-rank">
-              #{index + 1} {getMedal(index)}
-            </div>
-            <div className="leader-avatar">
-              <FaUserCircle />
-            </div>
-            <div className="leader-info">
-              <h3>{user.userName}</h3>
-              <p>ID: {user.userId}</p>
-              <p>Score: {user.totalScore}</p>
-            </div>
-            {index > 2 && <div className="keep-going">Keep going! 🔥</div>}
-          </div>
-        ))}
+
+      <div className="table-wrapper">
+        <table className="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>User</th>
+              <th>User ID</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {leaderboard.length === 0 ? (
+              <tr>
+                <td colSpan="4" className="empty">
+                  No data available
+                </td>
+              </tr>
+            ) : (
+              leaderboard.map((user, index) => (
+                <tr
+                  key={user.userId}
+                  className={index < 3 ? "top-row" : ""}
+                >
+                  {/* RANK */}
+                  <td className="rank-cell">
+                    {getMedal(index)}
+                  </td>
+
+                  {/* USER */}
+                  <td className="user-cell">
+                    <FaUserCircle className="avatar" />
+                    <span>{user.userName}</span>
+                  </td>
+
+                  {/* ID */}
+                  <td>{user.userId}</td>
+
+                  {/* SCORE */}
+                  <td className="score-cell">
+                    {user.totalScore}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );

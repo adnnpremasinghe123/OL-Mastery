@@ -1,81 +1,85 @@
 .leaderboard-container {
   max-width: 900px;
   margin: 40px auto;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", sans-serif;
   text-align: center;
 }
 
 h2 {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   color: #0d6efd;
 }
 
-.leaderboard-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+/* table wrapper */
+.table-wrapper {
+  overflow-x: auto;
 }
 
-.leader-card {
-  background: #f8f9fa;
-  padding: 20px;
+/* table */
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  position: relative;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
 
-.leader-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+/* header */
+.leaderboard-table thead {
+  background: linear-gradient(90deg, #0d6efd, #4f46e5);
+  color: white;
 }
 
-.gold {
-  background: linear-gradient(135deg, #ffd700, #fff5b1);
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 14px;
+  text-align: center;
 }
 
-.silver {
-  background: linear-gradient(135deg, #c0c0c0, #e0e0e0);
+/* rows */
+.leaderboard-table tbody tr {
+  border-bottom: 1px solid #eee;
+  transition: 0.2s;
 }
 
-.bronze {
-  background: linear-gradient(135deg, #cd7f32, #f0d7b2);
+.leaderboard-table tbody tr:hover {
+  background: #f8f9ff;
+  transform: scale(1.01);
 }
 
-.leader-rank {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.leader-avatar {
-  font-size: 50px;
-  color: #6c757d;
-  margin-bottom: 10px;
-}
-
-.leader-info h3 {
-  margin: 5px 0;
+/* rank */
+.rank-cell {
   font-size: 18px;
-  color: #212529;
-}
-
-.leader-info p {
-  margin: 2px 0;
-  font-size: 14px;
-  color: #495057;
-}
-
-.keep-going {
-  margin-top: 10px;
-  font-size: 14px;
   font-weight: bold;
-  color: #0d6efd;
-  animation: bounce 1s infinite alternate;
 }
 
-/* Bounce animation for motivation */
-@keyframes bounce {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(-5px); }
+/* user cell */
+.user-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.avatar {
+  font-size: 22px;
+  color: #6c757d;
+}
+
+/* score */
+.score-cell {
+  font-weight: bold;
+  color: #16a34a;
+}
+
+/* top 3 highlight */
+.top-row {
+  background: #fff8dc;
+}
+
+/* empty */
+.empty {
+  padding: 20px;
+  color: #888;
 }

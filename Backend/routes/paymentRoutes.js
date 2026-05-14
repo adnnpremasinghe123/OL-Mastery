@@ -1,5 +1,6 @@
 import express from "express";
 import { createPayment, handleNotify } from "../controllers/paymentController.js";
+import Payment from "../models/Payment.js";
 
 const router = express.Router();
 

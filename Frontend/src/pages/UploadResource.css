@@ -1,135 +1,325 @@
+/* ================= PAGE BACKGROUND ================= */
 
-/* Form container */
-form.upload-form {
-  background-color: #ffffff;
-  padding: 25px 30px;
-  border-radius: 12px;
-  max-width: 600px;
-  margin: 0 auto 40px auto;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom right, #eef2ff, #f8fafc);
+  font-family: "Poppins", sans-serif;
+  color: #1f2937;
 }
 
-form.upload-form:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+/* ================= MAIN CONTAINER ================= */
+
+.resource-page {
+  padding: 40px;
+  min-height: 100vh;
 }
 
-/* Input fields */
-form.upload-form input[type="text"],
-form.upload-form textarea,
-form.upload-form input[type="file"] {
+/* ================= PAGE TITLE ================= */
+
+.resource-title {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.resource-title h2 {
+  font-size: 34px;
+  color: #111827;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.resource-title p {
+  color: #6b7280;
+  font-size: 15px;
+}
+
+/* ================= FORM SECTION ================= */
+
+.upload-form {
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 24px;
+  max-width: 850px;
+  margin: 0 auto 45px auto;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.4s ease;
+}
+
+/* ===== Form Heading ===== */
+
+.upload-form h3 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #1e3a8a;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* ===== Input Groups ===== */
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* ===== Inputs ===== */
+
+.upload-form input[type="text"],
+.upload-form textarea,
+.upload-form input[type="file"],
+.upload-form select {
   width: 100%;
-  padding: 12px 15px;
-  margin-bottom: 18px;
-  border-radius: 8px;
+  padding: 14px 16px;
+  border-radius: 14px;
   border: 1px solid #d1d5db;
-  font-size: 0.95rem;
+  background: #f9fafb;
+  font-size: 15px;
   outline: none;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
 }
 
-form.upload-form input:focus,
-form.upload-form textarea:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+.upload-form input:focus,
+.upload-form textarea:focus,
+.upload-form select:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
 }
 
-/* Textarea */
-form.upload-form textarea {
-  min-height: 100px;
+.upload-form textarea {
+  min-height: 120px;
   resize: vertical;
 }
 
-/* Submit button */
-form.upload-form button {
-  background-color: #4f46e5;
-  color: #ffffff;
-  padding: 12px 25px;
-  font-size: 0.95rem;
-  font-weight: 500;
+/* ===== Upload Button ===== */
+
+.upload-form button {
+  width: 100%;
+  padding: 15px;
   border: none;
-  border-radius: 8px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: all 0.25s ease;
 }
 
-form.upload-form button:hover {
-  background-color: #4338ca;
+.upload-form button:hover {
   transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
 }
 
-/* Resources grid container */
-div.resources-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+/* ================= RESOURCE TABLE SECTION ================= */
+
+.resources-section {
+  margin-top: 20px;
 }
 
-/* Resource card */
-div.resource-card {
-  background-color: #ffffff;
-  padding: 20px 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+/* ===== Table Container ===== */
+
+.resources-table-wrapper {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.4s ease;
 }
 
-div.resource-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+/* ===== Table ===== */
+
+.resources-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-/* Card title */
-div.resource-card h4 {
-  margin-bottom: 8px;
-  color: #4f46e5;
-  font-size: 1.1rem;
+/* ===== Table Header ===== */
+
+.resources-table thead {
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
 }
 
-/* Card description & metadata */
-div.resource-card p {
-  margin: 4px 0;
-  font-size: 0.9rem;
-  color: #6b7280;
+.resources-table th {
+  padding: 18px;
+  text-align: left;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
-/* Download link */
-div.resource-card a {
+/* ===== Table Rows ===== */
+
+.resources-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background 0.2s ease;
+}
+
+.resources-table tbody tr:hover {
+  background: #eff6ff;
+}
+
+/* ===== Table Cells ===== */
+
+.resources-table td {
+  padding: 18px;
+  font-size: 14px;
+  color: #374151;
+  vertical-align: middle;
+}
+
+/* ===== Resource Name ===== */
+
+.resource-name {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* ===== Subject Badge ===== */
+
+.subject-badge {
   display: inline-block;
-  margin-top: 10px;
-  padding: 6px 14px;
-  background-color: #10b981;
-  color: #ffffff;
-  font-weight: 500;
-  border-radius: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ===== File Type Badge ===== */
+
+.file-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ===== Action Buttons ===== */
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Download Button */
+
+.download-btn {
+  padding: 9px 16px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
   text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(16, 185, 129, 0.25);
+}
+
+/* Delete Button */
+
+.delete-btn {
+  padding: 9px 16px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+  color: white;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(239, 68, 68, 0.25);
+}
+
+/* ================= EMPTY STATE ================= */
+
+.empty-state {
+  padding: 50px;
   text-align: center;
-  transition: background-color 0.3s;
+  color: #6b7280;
+  font-size: 16px;
 }
 
-div.resource-card a:hover {
-  background-color: #059669;
+/* ================= SCROLLBAR ================= */
+
+.resources-table-wrapper::-webkit-scrollbar {
+  height: 8px;
 }
 
-/* Responsive adjustments */
+.resources-table-wrapper::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 20px;
+}
+
+/* ================= ANIMATION ================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= RESPONSIVE ================= */
+
 @media (max-width: 1024px) {
-  div.resources-list {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  .resource-page {
+    padding: 25px;
+  }
+
+  .upload-form {
+    padding: 25px;
   }
 }
 
-@media (max-width: 640px) {
-  form.upload-form {
-    padding: 20px;
+@media (max-width: 768px) {
+  .resources-table-wrapper {
+    overflow-x: auto;
   }
 
-  div.resource-card {
-    padding: 15px 20px;
+  .resources-table {
+    min-width: 750px;
+  }
+
+  .upload-form {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .resource-title h2 {
+    font-size: 26px;
+  }
+
+  .upload-form h3 {
+    font-size: 20px;
   }
 }

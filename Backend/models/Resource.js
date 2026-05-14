@@ -2,7 +2,7 @@
 import mongoose from "mongoose";
 
 const resourceSchema = new mongoose.Schema({
-  title: { type: String, required: true },
+  subject: { type: String, required: true },
   description: { type: String, default: "" },
   uploadedBy: { type: String, required: true }, // teacher/student name
   role: { type: String, enum: ["student", "teacher", "admin"], required: true },

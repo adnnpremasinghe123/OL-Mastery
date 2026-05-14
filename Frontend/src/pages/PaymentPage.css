@@ -1,30 +1,87 @@
 .payment-container {
+  height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 50px;
+  align-items: center;
+  background: linear-gradient(135deg, #eef2f7, #d9e4f5);
 }
 
-.card {
-  width: 400px;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.payment-card {
+  width: 380px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
-input {
-  padding: 12px;
+.title {
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.price-box {
+  background: #f5f8ff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.price-box span {
+  font-size: 13px;
+  color: #666;
+}
+
+.price-box h3 {
+  margin: 5px 0 0;
+  color: #2a4cff;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
   border-radius: 8px;
   border: 1px solid #ddd;
+  transition: 0.2s;
 }
 
-button {
+.form-group input:focus {
+  border-color: #2a4cff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(42,76,255,0.1);
+}
+
+.pay-btn {
+  width: 100%;
   padding: 12px;
-  border: none;
-  background: green;
+  background: #2a4cff;
   color: white;
-  border-radius: 8px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.pay-btn:hover {
+  background: #1f3bd1;
+}
+
+.pay-btn:disabled {
+  background: #aaa;
+  cursor: not-allowed;
 }

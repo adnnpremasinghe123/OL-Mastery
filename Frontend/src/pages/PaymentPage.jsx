@@ -145,41 +145,57 @@ export default function PaymentPage() {
   if (!session) return <h3>Session not found</h3>;
 
   return (
-    <div className="payment-container">
-      <div className="card">
+  <div className="payment-container">
+    <div className="payment-card">
 
-        <h2>{session.title}</h2>
-        <p>Rs. {session.payment}</p>
+      <h2 className="title">{session.title}</h2>
 
+      <div className="price-box">
+        <span>Total Amount</span>
+        <h3>Rs. {session.payment}</h3>
+      </div>
+
+      <div className="form-group">
+        <label>Full Name</label>
         <input
-          placeholder="Name"
+          type="text"
+          placeholder="Enter your name"
           value={form.name}
           onChange={(e) =>
             setForm({ ...form, name: e.target.value })
           }
         />
+      </div>
 
+      <div className="form-group">
+        <label>Email Address</label>
         <input
-          placeholder="Email"
+          type="email"
+          placeholder="Enter your email"
           value={form.email}
           onChange={(e) =>
             setForm({ ...form, email: e.target.value })
           }
         />
+      </div>
 
+      <div className="form-group">
+        <label>Phone Number</label>
         <input
-          placeholder="Phone"
+          type="text"
+          placeholder="Enter your phone"
           value={form.phone}
           onChange={(e) =>
             setForm({ ...form, phone: e.target.value })
           }
         />
-
-        <button onClick={handlePay} disabled={loading}>
-          {loading ? "Processing..." : "Pay Now"}
-        </button>
-
       </div>
+
+      <button className="pay-btn" onClick={handlePay} disabled={loading}>
+        {loading ? "Processing..." : "Pay Now"}
+      </button>
+
     </div>
-  );
+  </div>
+);
 }

@@ -31,8 +31,6 @@ import chatRoutes from "./routes/chatRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
 import feedbackRoutes from "./routes/feedbackRoutes.js";
 
-
-// Socket
 import initChatSocket from "./socket/chatSocket.js";
 
 const app = express();
@@ -56,10 +54,10 @@ mongoose
     process.exit(1);
   });
 
-// ✅ Debug OpenAI Key
+// ✅ Debug Gemini  Key
 console.log(
-  "OPENAI KEY:",
-  process.env.OPENAI_API_KEY ? "LOADED ✅" : "MISSING ❌"
+  "GEMINI KEY:",
+  process.env.GEMINI_API_KEY ? "LOADED ✅" : "MISSING ❌"
 );
 
 // ------------------ API Routes ------------------
@@ -84,11 +82,11 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/feedback", feedbackRoutes);
 
-app.use(express.urlencoded({ extended: true })); // REQUIRED for PayHere notify
+app.use("/api/chat", chatRoutes);
+
+app.use(express.urlencoded({ extended: true })); 
 app.use(express.json());
 
-// ✅ Chatbot endpoint
-app.use("/chat", chatRoutes);
 
 // ------------------ Socket Initialization ------------------
 initChatSocket(server);
