@@ -1,4 +1,4 @@
-/* Main container */
+
 .quiz-results-container {
   padding: 30px;
   background: #f9fafb;
@@ -6,14 +6,14 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Title */
+
 .quiz-results-container h2 {
   text-align: center;
   margin-bottom: 25px;
   color: #1e3a8a;
 }
 
-/* Table styling */
+
 .quiz-results-table {
   width: 100%;
   border-collapse: collapse;
@@ -23,7 +23,7 @@
   overflow: hidden;
 }
 
-/* Header */
+
 .quiz-results-table thead {
   background: #1e40af;
   color: white;
@@ -35,31 +35,31 @@
   font-weight: 600;
 }
 
-/* Body rows */
+
 .quiz-results-table td {
   padding: 12px;
   text-align: center;
   border-bottom: 1px solid #e5e7eb;
 }
 
-/* Hover effect */
+
 .quiz-results-table tbody tr:hover {
   background: #f3f4f6;
 }
 
-/* Alternate row colors */
+
 .quiz-results-table tbody tr:nth-child(even) {
   background: #f9fafb;
 }
 
-/* Empty state */
+
 .no-results {
   text-align: center;
   margin-top: 20px;
   color: #6b7280;
   font-size: 16px;
 }
-/* Summary cards */
+
 .summary-cards {
   display: flex;
   gap: 20px;
@@ -85,7 +85,7 @@
   font-weight: bold;
 }
 
-/* Chart */
+
 .chart-container {
   background: white;
   padding: 20px;
@@ -93,7 +93,7 @@
   margin-bottom: 20px;
 }
 
-/* Improve table */
+
 .quiz-results-table td:nth-child(4) {
   font-weight: bold;
   color: #16a34a;

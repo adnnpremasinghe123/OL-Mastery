@@ -22,13 +22,13 @@ export default function QuizResults() {
       .catch(() => alert("Failed to load results"));
   }, [user.name]);
 
-  /* -------- Calculate Average -------- */
+ 
   const totalScore = results.reduce((sum, r) => sum + r.score, 0);
   const totalMarks = results.reduce((sum, r) => sum + r.total, 0);
   const average =
     totalMarks === 0 ? 0 : ((totalScore / totalMarks) * 100).toFixed(1);
 
-  /* -------- Prepare Chart Data -------- */
+
   const chartData = results.map((r) => ({
     name: r.quizTitle,
     score: r.score,
@@ -38,7 +38,7 @@ export default function QuizResults() {
     <div className="quiz-results-container">
       <h2>My Quiz Results</h2>
 
-      {/* -------- Summary Cards -------- */}
+     
       <div className="summary-cards">
         <div className="card">
           <h3>Total Quizzes</h3>
@@ -51,7 +51,7 @@ export default function QuizResults() {
         </div>
       </div>
 
-      {/* -------- Chart -------- */}
+     
       {results.length > 0 && (
         <div className="chart-container">
           <h3>Performance Chart</h3>
@@ -68,7 +68,7 @@ export default function QuizResults() {
         </div>
       )}
 
-      {/* -------- Table -------- */}
+    
       {results.length === 0 ? (
         <p className="no-results">No results found.</p>
       ) : (

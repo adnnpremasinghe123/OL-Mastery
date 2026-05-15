@@ -4,7 +4,7 @@ font-family:Poppins;
 background:#f5f7fb;
 }
 
-/* STUDENT CARDS */
+
 
 .student-cards{
 display:grid;
@@ -31,7 +31,7 @@ font-weight:bold;
 color:#2563eb;
 }
 
-/* CHART */
+
 
 .chart-section{
 margin-top:40px;
@@ -41,7 +41,7 @@ border-radius:10px;
 box-shadow:0 4px 10px rgba(0,0,0,0.08);
 }
 
-/* TOP STUDENTS */
+
 
 .top-students{
 margin-top:40px;

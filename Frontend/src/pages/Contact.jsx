@@ -26,7 +26,7 @@ const Contact = () => {
 
   return (
     <div className="contact-container">
-      {/* ===== Left Section ===== */}
+      
       <div className="contact-info">
         <h1>Contact Us</h1>
         <p>
@@ -40,7 +40,7 @@ const Contact = () => {
         </ul>
       </div>
 
-      {/* ===== Right Section (Form) ===== */}
+     
       <div className="contact-form">
         <h2>Send Us an Email</h2>
         <form ref={form} onSubmit={sendEmail}>

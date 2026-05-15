@@ -1,4 +1,4 @@
-/* ================= GLOBAL ================= */
+
 body {
   margin: 0;
   padding: 0;
@@ -7,7 +7,7 @@ body {
   color: #1f2937;
 }
 
-/* ================= EXAM PAGE ================= */
+
 
 .exam-container {
   padding: 35px;
@@ -15,7 +15,7 @@ body {
   background: linear-gradient(to bottom right, #eef2ff, #f8fafc);
 }
 
-/* ===== Header ===== */
+
 
 .exam-header {
   background: linear-gradient(135deg, #2563eb, #1e3a8a);
@@ -40,7 +40,7 @@ body {
   opacity: 0.9;
 }
 
-/* ===== Main Layout ===== */
+
 
 .exam-body {
   display: flex;
@@ -49,7 +49,7 @@ body {
   align-items: flex-start;
 }
 
-/* ===== Question Area ===== */
+
 
 .question-area {
   flex: 3;
@@ -76,7 +76,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* ===== Options ===== */
+
 
 .option {
   display: block;
@@ -102,7 +102,7 @@ body {
   transform: scale(1.1);
 }
 
-/* ===== Question Palette ===== */
+
 
 .question-palette {
   flex: 1;
@@ -120,7 +120,7 @@ body {
   margin-bottom: 18px;
 }
 
-/* ===== Palette Grid ===== */
+
 
 .palette-grid {
   display: grid;
@@ -151,7 +151,7 @@ body {
   box-shadow: 0 4px 10px rgba(34, 197, 94, 0.35);
 }
 
-/* ===== Submit Button ===== */
+
 
 .submit-btn {
   margin-top: 25px;
@@ -172,7 +172,7 @@ body {
   box-shadow: 0 8px 18px rgba(239, 68, 68, 0.3);
 }
 
-/* ================= RESULT PAGE ================= */
+
 
 .result-box {
   max-width: 550px;
@@ -216,7 +216,7 @@ body {
   box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
 }
 
-/* ================= QUIZ LIST TABLE ================= */
+
 
 .student-quiz-container {
   min-height: 100vh;
@@ -233,7 +233,6 @@ body {
   text-align: center;
 }
 
-/* ===== Table ===== */
 
 .quiz-table {
   width: 100%;
@@ -269,7 +268,7 @@ body {
   transition: 0.2s;
 }
 
-/* ===== Buttons ===== */
+
 
 .quiz-table button {
   min-width: 90px;
@@ -288,7 +287,7 @@ body {
   box-shadow: 0 6px 14px rgba(34, 197, 94, 0.3);
 }
 
-/* ================= ANIMATION ================= */
+
 
 @keyframes fadeIn {
   from {
@@ -302,7 +301,7 @@ body {
   }
 }
 
-/* ================= RESPONSIVE ================= */
+
 
 @media (max-width: 900px) {
   .exam-body {

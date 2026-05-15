@@ -15,14 +15,14 @@ export default function QuizResults() {
     fetchResults();
   }, []);
 
-  /* ================= GROUP BY QUIZ ================= */
+ 
   const groupedByQuiz = results.reduce((acc, r) => {
     if (!acc[r.quizTitle]) acc[r.quizTitle] = [];
     acc[r.quizTitle].push(r);
     return acc;
   }, {});
 
-  /* ================= CALCULATE QUIZ STATS ================= */
+ 
   const quizStats = Object.keys(groupedByQuiz).map((quizTitle) => {
     const quizResults = groupedByQuiz[quizTitle];
 
@@ -31,7 +31,7 @@ export default function QuizResults() {
 
     const average = Math.round((totalScore / totalMarks) * 100);
 
-    // Pass / Fail per quiz
+    
     let passCount = 0;
     let failCount = 0;
     quizResults.forEach(r => {
@@ -40,7 +40,7 @@ export default function QuizResults() {
       else failCount++;
     });
 
-    // Top students per quiz
+    
     const topStudents = [...quizResults]
       .sort((a, b) => (b.score / b.total) - (a.score / a.total))
       .slice(0, 5)

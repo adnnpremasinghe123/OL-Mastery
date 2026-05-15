@@ -1,4 +1,4 @@
-/* ---------- ROOT COLORS ---------- */
+
 :root {
   --primary: #4f46e5;
   --secondary: #22c55e;
@@ -10,7 +10,7 @@
   --border: #e5e7eb;
 }
 
-/* ---------- MAIN DASHBOARD ---------- */
+
 .student-dashboard {
   padding: 30px;
   font-family: 'Poppins', sans-serif;
@@ -18,7 +18,7 @@
   min-height: 100vh;
 }
 
-/* ---------- HEADER ---------- */
+
 .dashboard-header {
   display: flex;
   justify-content: space-between;
@@ -39,7 +39,7 @@
   font-size: 0.95rem;
 }
 
-/* ---------- HEADER RIGHT ---------- */
+
 .header-right {
   display: flex;
   align-items: center;
@@ -57,7 +57,7 @@
   transform: scale(1.15);
 }
 
-/* ---------- LOGOUT ---------- */
+
 .logout-btn {
   display: flex;
   align-items: center;
@@ -77,7 +77,7 @@
   box-shadow: 0 12px 22px rgba(239, 68, 68, 0.4);
 }
 
-/* ---------- FEATURE GRID ---------- */
+
 .dashboard-features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -85,7 +85,7 @@
   margin-bottom: 45px;
 }
 
-/* ---------- FEATURE CARD ---------- */
+
 .feature-card {
   background: var(--card-bg);
   backdrop-filter: blur(10px);
@@ -132,7 +132,7 @@
   font-size: 0.95rem;
 }
 
-/* ---------- FEATURE BUTTON ---------- */
+
 .feature-card button {
   margin-top: 14px;
   padding: 9px 18px;
@@ -151,7 +151,7 @@
   box-shadow: 0 14px 28px rgba(79, 70, 229, 0.4);
 }
 
-/* ---------- ANALYTICS ---------- */
+
 .analytics-section h2 {
   margin-bottom: 22px;
   font-size: 1.6rem;
@@ -165,7 +165,7 @@
   gap: 18px;
 }
 
-/* ---------- ANALYTICS CARD ---------- */
+
 .analytics-card {
   flex: 1 1 220px;
   background: var(--card-bg);
@@ -186,7 +186,7 @@
   color: var(--dark);
 }
 
-/* ---------- PROGRESS ---------- */
+
 .progress-bar {
   height: 16px;
   width: 100%;

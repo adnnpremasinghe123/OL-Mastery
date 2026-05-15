@@ -1,4 +1,4 @@
-/* ---------- MAIN CONTAINER ---------- */
+
 .register-container {
   width: 100%;
   max-width: 450px;
@@ -12,7 +12,7 @@
   animation: fadeIn 0.5s ease;
 }
 
-/* ---------- TITLE ---------- */
+
 .register-container h2 {
   font-size: 28px;
   font-weight: 700;
@@ -20,7 +20,7 @@
   margin-bottom: 25px;
 }
 
-/* ---------- ERROR & SUCCESS BOX ---------- */
+
 .error-box,
 .success-box {
   padding: 12px 15px;
@@ -42,7 +42,7 @@
   border-left: 4px solid #43a047;
 }
 
-/* ---------- FORM ELEMENTS ---------- */
+
 form {
   margin-top: 10px;
   text-align: left;
@@ -75,7 +75,7 @@ form select:focus {
   box-shadow: 0px 0px 6px rgba(30, 136, 229, 0.3);
 }
 
-/* ---------- SUBMIT BUTTON ---------- */
+
 button[type="submit"] {
   width: 100%;
   padding: 14px;
@@ -98,7 +98,7 @@ button[type="submit"]:disabled {
   cursor: not-allowed;
 }
 
-/* ---------- LOGIN TEXT ---------- */
+
 .login-text {
   margin-top: 20px;
   text-align: center;
@@ -116,7 +116,7 @@ button[type="submit"]:disabled {
   text-decoration: underline;
 }
 
-/* ---------- ANIMATION ---------- */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -128,7 +128,7 @@ button[type="submit"]:disabled {
   }
 }
 
-/* ---------- RESPONSIVE ---------- */
+
 @media (max-width: 500px) {
   .register-container {
     width: 90%;

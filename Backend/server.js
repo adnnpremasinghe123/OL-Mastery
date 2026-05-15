@@ -54,11 +54,7 @@ mongoose
     process.exit(1);
   });
 
-// ✅ Debug Gemini  Key
-console.log(
-  "GEMINI KEY:",
-  process.env.GEMINI_API_KEY ? "LOADED ✅" : "MISSING ❌"
-);
+
 
 // ------------------ API Routes ------------------
 app.use("/api/users", userRoutes);
@@ -84,8 +80,7 @@ app.use("/api/feedback", feedbackRoutes);
 
 app.use("/api/chat", chatRoutes);
 
-app.use(express.urlencoded({ extended: true })); 
-app.use(express.json());
+
 
 
 // ------------------ Socket Initialization ------------------

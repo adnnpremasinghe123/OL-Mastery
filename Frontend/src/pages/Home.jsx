@@ -35,7 +35,7 @@ export default function Home() {
   const [index, setIndex] = useState(0);
   const [feedbacks, setFeedbacks] = useState([]);
 
-  // Fetch feedbacks from backend
+
   useEffect(() => {
     const fetchFeedbacks = async () => {
       try {
@@ -179,7 +179,7 @@ export default function Home() {
   );
 }
 
-/* SMALL COMPONENTS */
+
 function Feature({ icon, title, text }) {
   return (
     <div className="feature-card">

@@ -8,9 +8,7 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* =========================================================
-   HEADINGS
-========================================================= */
+
 .game-page-container .subject-title {
   font-size: 2.6rem;
   font-weight: 700;
@@ -26,9 +24,7 @@
   margin-bottom: 45px;
 }
 
-/* =========================================================
-   BACK BUTTON
-========================================================= */
+
 .game-page-container .back-btn {
   padding: 10px 18px;
   background: #1e3a8a;
@@ -48,9 +44,6 @@
   background-color: #1e40af;
 }
 
-/* =========================================================
-   GAME GRID
-========================================================= */
 .game-page-container .subject-grid {
   display: grid;
   gap: 30px;
@@ -60,9 +53,7 @@
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
-/* =========================================================
-   GAME CARD
-========================================================= */
+
 .game-page-container .game-card {
   background: #ffffff;
   border-radius: 22px;
@@ -80,9 +71,7 @@
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
 }
 
-/* =========================================================
-   ICON STYLE
-========================================================= */
+
 .game-page-container .game-icon {
   font-size: 3.2rem;
   color: #3c6cff;
@@ -94,18 +83,14 @@
   transform: scale(1.15);
 }
 
-/* =========================================================
-   GAME TITLE
-========================================================= */
+
 .game-page-container .game-card h3 {
   font-size: 1.35rem;
   font-weight: 600;
   color: #23324b;
 }
 
-/* =========================================================
-   RESPONSIVE DESIGN
-========================================================= */
+
 @media (max-width: 768px) {
   .game-page-container .subject-title {
     font-size: 2.2rem;
@@ -119,14 +104,14 @@
     font-size: 2.8rem;
   }
 
-  /* Dashboard Button */
+ 
 .dashboard-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   margin: 20px 0;
   padding: 10px 18px;
-  background-color: #673ab7; /* Deep purple */
+  background-color: #673ab7; 
   color: #fff;
   font-size: 16px;
   font-weight: 600;
@@ -138,7 +123,7 @@
 }
 
 .dashboard-btn:hover {
-  background-color: #512da8; /* Darker purple on hover */
+  background-color: #512da8;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   transform: translateY(-2px);
 }
@@ -149,7 +134,7 @@
 }
 
 .dashboard-btn svg {
-  margin-right: 8px; /* if you use an icon like ⬅️ */
+  margin-right: 8px; 
 }
 
 

@@ -8,7 +8,7 @@ const API_BASE = "http://localhost:8081/api/math-score";
 export default function QuickMathGame() {
   const navigate = useNavigate();
 
-  // 🔹 Game State
+  
   const [num1, setNum1] = useState(0);
   const [num2, setNum2] = useState(0);
   const [operator, setOperator] = useState("+");
@@ -18,7 +18,7 @@ export default function QuickMathGame() {
   const [level, setLevel] = useState(1);
   const [gameOver, setGameOver] = useState(false);
 
-  // 🔹 Logged-in User
+ 
   const [user, setUser] = useState(null);
 
   // 🔹 Load user from localStorage
@@ -78,7 +78,7 @@ export default function QuickMathGame() {
     generateQuestion();
   };
 
-  // 🔹 Submit score without navigating
+
   const submitScore = async () => {
     if (!user) {
       alert("User not logged in");

@@ -1,4 +1,4 @@
-/* ---------- FOOTER CONTAINER ---------- */
+
 .footer {
   background: linear-gradient(135deg, #001832, #002f5c);
   color: #ffffff;
@@ -9,7 +9,7 @@
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.25);
 }
 
-/* ---------- FOOTER CONTENT ---------- */
+
 .footer-content {
   max-width: 1100px;
   margin: 0 auto;
@@ -31,7 +31,7 @@
   margin-bottom: 25px;
 }
 
-/* ---------- LINKS ---------- */
+
 .footer-links {
   display: flex;
   justify-content: center;
@@ -54,7 +54,7 @@
   text-underline-offset: 3px;
 }
 
-/* ---------- FOOTER BOTTOM ---------- */
+
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   text-align: center;
@@ -63,7 +63,7 @@
   opacity: 0.85;
 }
 
-/* ---------- RESPONSIVE ---------- */
+
 @media (max-width: 768px) {
   .footer-content h3 {
     font-size: 22px;

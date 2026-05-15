@@ -11,12 +11,12 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar">
-        {/* Logo */}
+       
         <div className="navbar-logo" onClick={() => navigate("/")}>
           <img src={logo} alt="OL Mastery Logo" />
         </div>
 
-        {/* Hamburger */}
+      
         <div
           className={`hamburger ${menuOpen ? "open" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
@@ -26,7 +26,7 @@ const Navbar = () => {
           <span></span>
         </div>
 
-        {/* Navigation Links */}
+     
         <ul className={`navbar-links ${menuOpen ? "active" : ""}`}>
           <li><a href="/" className="active">Home</a></li>
           <li><a href="/about">About</a></li>
@@ -34,7 +34,7 @@ const Navbar = () => {
          
         </ul>
 
-        {/* Right Side */}
+      
         <div className="navbar-right">
           <a href="/login" className="navbar-btn">Login</a>
         </div>

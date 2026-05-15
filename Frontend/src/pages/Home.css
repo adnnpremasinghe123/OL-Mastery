@@ -1,6 +1,4 @@
-/* =======================
-   GLOBAL
-======================= */
+
 .home-wrapper {
   font-family: "Poppins", sans-serif;
   color: #333;
@@ -11,9 +9,7 @@ a {
   text-decoration: none;
 }
 
-/* =======================
-   HERO SLIDER
-======================= */
+
 .hero-clean {
   position: relative;
   height: 520px;
@@ -99,9 +95,7 @@ a {
   background: #f0f0f0;
 }
 
-/* =======================
-   INTRO SECTION
-======================= */
+
 .intro-section {
   padding: 60px 20px;
   text-align: center;
@@ -119,9 +113,7 @@ a {
   color: #555;
 }
 
-/* =======================
-   FEATURES
-======================= */
+
 .features-clean {
   padding: 60px 20px;
   background: #f6f7fb;
@@ -155,9 +147,7 @@ a {
   margin-bottom: 12px;
 }
 
-/* =======================
-   ROLES
-======================= */
+
 .roles-section {
   padding: 60px 20px;
   display: flex;
@@ -188,9 +178,7 @@ a {
   margin: 8px 0;
 }
 
-/* =======================
-   CTA
-======================= */
+
 .cta-clean {
   padding: 60px 20px;
   text-align: center;
@@ -208,9 +196,7 @@ a {
   margin-bottom: 20px;
 }
 
-/* =======================
-   FEEDBACK
-======================= */
+
 .home-feedback-section {
   max-width: 900px;
   margin: 3rem auto;

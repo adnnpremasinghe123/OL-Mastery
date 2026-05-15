@@ -4,7 +4,7 @@
   line-height: 1.6;
 }
 
-/* ===== HERO ===== */
+
 .about-hero {
   background: linear-gradient(to right, #0a2342, #1a4b84);
   color: white;
@@ -22,7 +22,7 @@
   opacity: 0.9;
 }
 
-/* ===== MISSION & VISION ===== */
+
 .mission-vision {
   display: flex;
   flex-wrap: wrap;
@@ -46,7 +46,7 @@
   transform: translateY(-5px);
 }
 
-/* ===== ROLES ===== */
+
 .roles-section {
   text-align: center;
   padding: 80px 20px;
@@ -88,7 +88,7 @@
   color: #0a2342;
 }
 
-/* ===== VALUES ===== */
+
 .values-section {
   background: #f0f4f8;
   padding: 80px 20px;
@@ -120,7 +120,7 @@
   margin-bottom: 10px;
 }
 
-/* ===== CTA ===== */
+
 .cta-section {
   background: #1a4b84;
   color: white;
@@ -150,7 +150,7 @@
   background: #ffd54f;
 }
 
-/* ===== RESPONSIVE ===== */
+
 @media (max-width: 768px) {
   .about-hero h1 {
     font-size: 2rem;

@@ -5,7 +5,7 @@ import "./HumanBodyLabelGame.css";
 
 const API_BASE = "http://localhost:8081/api/body-score";
 
-// Sample organs/parts for labeling
+
 const bodyParts = [
   { name: "Heart", hint: "Pumps blood throughout the body" },
   { name: "Lungs", hint: "Responsible for breathing" },
@@ -21,10 +21,10 @@ export default function HumanBodyLabelGame() {
   const [userAnswer, setUserAnswer] = useState("");
   const [score, setScore] = useState(0);
 
-  // Logged-in user info
+ 
   const [user, setUser] = useState(null);
 
-  // Load logged-in user from localStorage
+ 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -32,7 +32,7 @@ export default function HumanBodyLabelGame() {
     }
   }, []);
 
-  // Load random body part
+  
   const nextPart = () => {
     setCurrentIndex(Math.floor(Math.random() * bodyParts.length));
     setUserAnswer("");
@@ -53,7 +53,7 @@ export default function HumanBodyLabelGame() {
     nextPart();
   };
 
-  // Save score using user ID and name, then refresh page
+  
   const submitScore = async () => {
     if (!user) {
       alert("User not logged in");
@@ -100,7 +100,6 @@ export default function HumanBodyLabelGame() {
         Save Score
       </button>
 
-      {/* Back to Subjects */}
       <button
         className="back-subjects-btn"
         onClick={() => navigate("/games")}

@@ -4,7 +4,7 @@ import "./About.css";
 export default function About() {
   return (
     <div className="about-page">
-      {/* ===== HERO SECTION ===== */}
+     
       <section className="about-hero">
         <div className="hero-content">
           <h1>About OL Matery</h1>
@@ -17,7 +17,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ===== MISSION & VISION ===== */}
+      
       <section className="mission-vision">
         <div className="mission-card">
           <h2>🎯 Our Mission</h2>
@@ -37,7 +37,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ===== PLATFORM FEATURES ===== */}
+      
       <section className="roles-section">
         <h2>Who We Empower</h2>
         <p className="roles-intro">
@@ -82,7 +82,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ===== CORE VALUES ===== */}
+    
       <section className="values-section">
         <h2>Our Core Values</h2>
         <div className="values-grid">
@@ -105,7 +105,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ===== CTA SECTION ===== */}
+   
       <section className="cta-section">
         <h2>Join the Future of Learning</h2>
         <p>

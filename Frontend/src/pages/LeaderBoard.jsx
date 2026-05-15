@@ -56,21 +56,21 @@ export default function Leaderboard() {
                   key={user.userId}
                   className={index < 3 ? "top-row" : ""}
                 >
-                  {/* RANK */}
+                  
                   <td className="rank-cell">
                     {getMedal(index)}
                   </td>
 
-                  {/* USER */}
+                
                   <td className="user-cell">
                     <FaUserCircle className="avatar" />
                     <span>{user.userName}</span>
                   </td>
 
-                  {/* ID */}
+                 
                   <td>{user.userId}</td>
 
-                  {/* SCORE */}
+                 
                   <td className="score-cell">
                     {user.totalScore}
                   </td>

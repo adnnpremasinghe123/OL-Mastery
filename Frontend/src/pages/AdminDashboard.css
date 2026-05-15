@@ -1,4 +1,4 @@
-/* General Styles */
+
 .admin-dashboard {
   display: flex;
   min-height: 100vh;
@@ -6,7 +6,7 @@
   background-color: #f4f4f4;
 }
 
-/* Sidebar */
+
 .admin-sidebar {
   width: 250px;
   background-color: #1f2937;
@@ -50,7 +50,7 @@
   padding: 20px;
 }
 
-/* Header */
+
 .admin-header {
   display: flex;
   justify-content: space-between;
@@ -67,7 +67,7 @@
   cursor: pointer;
 }
 
-/* Statistics Cards */
+
 .admin-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -97,7 +97,7 @@
   color: #6b7280;
 }
 
-/* Management Grid */
+
 .management-section h2 {
   margin-bottom: 20px;
   color: #111827;

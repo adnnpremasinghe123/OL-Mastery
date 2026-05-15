@@ -1,52 +1,93 @@
 import express from "express";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Chat from "../models/Chat.js";
+import olData from "../data/olData.js";
 
 const router = express.Router();
 
-// ✅ Gemini setup
-const genAI = new GoogleGenerativeAI(
-  process.env.GEMINI_API_KEY
-);
 
+// ===============================
+// SEND MESSAGE
+// ===============================
 router.post("/", async (req, res) => {
   try {
-    // Check API key
-    if (!process.env.GEMINI_API_KEY) {
-      return res.status(500).json({
-        reply: "Gemini API key missing",
-      });
-    }
-
-    const { message } = req.body;
+    const { message, subject } = req.body;
 
     if (!message) {
-      return res.status(400).json({
-        reply: "Message is required",
-      });
+      return res.status(400).json({ reply: "Message required" });
     }
 
-    // ✅ Gemini model
-   const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash", 
-});
+    const lowerMessage = message.toLowerCase();
+    const selectedSubject = subject || "General";
 
-    // ✅ Generate response
-    const result = await model.generateContent(message);
+    let foundAnswer = null;
 
-    const response = await result.response;
+    for (const item of olData) {
+      if (item.subject !== selectedSubject) continue;
 
-    const text = response.text();
+      if (
+        item.keywords.some((k) =>
+          lowerMessage.includes(k.toLowerCase())
+        )
+      ) {
+        foundAnswer = item.answer;
+        break;
+      }
+    }
+
+    if (!foundAnswer) {
+      foundAnswer = `Sorry, no answer found for ${selectedSubject}`;
+    }
+
+    const chat = new Chat({
+      subject: selectedSubject,
+      userMessage: message,
+      botReply: foundAnswer,
+    });
+
+    await chat.save();
 
     res.json({
-      reply: text,
+      reply: foundAnswer,
+      subject: selectedSubject,
     });
 
-  } catch (error) {
-    console.error("❌ Gemini Error:", error);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ reply: "Server error" });
+  }
+});
 
-    res.status(500).json({
-      reply: "AI service error",
+
+// ===============================
+// GET HISTORY
+// ===============================
+router.get("/history/:subject", async (req, res) => {
+  try {
+    const chats = await Chat.find({
+      subject: req.params.subject,
+    }).sort({ createdAt: 1 });
+
+    res.json(chats);
+
+  } catch (err) {
+    res.status(500).json({ message: "Error loading chat" });
+  }
+});
+
+
+// ===============================
+// CLEAR CHAT
+// ===============================
+router.delete("/clear/:subject", async (req, res) => {
+  try {
+    await Chat.deleteMany({
+      subject: req.params.subject,
     });
+
+    res.json({ message: "Chat cleared" });
+
+  } catch (err) {
+    res.status(500).json({ message: "Error clearing chat" });
   }
 });
 

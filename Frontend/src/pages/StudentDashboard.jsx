@@ -74,7 +74,7 @@ const submitFeedback = async (e) => {
 
     <div className="student-dashboard">
 
-      {/* HEADER */}
+    
 
       <header className="dashboard-header">
 
@@ -102,7 +102,7 @@ const submitFeedback = async (e) => {
       </header>
 
 
-      {/* FEATURES */}
+     
 
       <div className="dashboard-features">
 
@@ -151,7 +151,7 @@ const submitFeedback = async (e) => {
       </div>
 
 
-      {/* PROGRESS ANALYTICS */}
+    
 
       <div className="analytics-section">
 
@@ -185,7 +185,7 @@ const submitFeedback = async (e) => {
       </div>
 
 
-      {/* FEEDBACK SECTION */}
+   
 
       <div className="feedback-section">
 

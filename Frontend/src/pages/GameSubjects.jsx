@@ -22,7 +22,7 @@ export default function GameSubjects() {
       </p>
 
       
-      {/* Dashboard Button */}
+   
       <div
         className="dashboard-btn"
         onClick={() => navigate("/student")}

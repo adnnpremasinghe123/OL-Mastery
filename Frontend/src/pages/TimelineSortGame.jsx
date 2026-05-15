@@ -20,7 +20,7 @@ export default function TimelineSortGame() {
   const [score, setScore] = useState(0);
   const [user, setUser] = useState(null);
 
-  // 🔹 Load logged-in user
+  
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -64,7 +64,7 @@ export default function TimelineSortGame() {
     shuffleEvents();
   };
 
-  // 🔹 Save score using logged-in user
+ 
   const submitScore = async () => {
     if (!user) {
       alert("User not logged in");

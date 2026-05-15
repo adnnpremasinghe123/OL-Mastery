@@ -19,7 +19,7 @@ import {
 export default function AdminDashboard() {
   const navigate = useNavigate();
 
-  // Navigation targets
+ 
   const pages = {
     students: "/admin/students",
     teachers: "/admin/teachers",
@@ -42,7 +42,7 @@ export default function AdminDashboard() {
   return (
     <div className="admin-dashboard">
 
-      {/* Sidebar */}
+   
       <aside className="admin-sidebar">
         <div className="sidebar-header">
           <h2>Admin Panel</h2>
@@ -102,7 +102,7 @@ export default function AdminDashboard() {
         </nav>
       </aside>
 
-      {/* Main Content */}
+  
       <main className="admin-main">
 
         {/* Top Bar */}
@@ -113,7 +113,6 @@ export default function AdminDashboard() {
           </div>
         </header>
 
-        {/* Statistics Section */}
         <section className="admin-stats">
           <div className="stat-card">
             <FaUsers size={40} color="#4f46e5" />
@@ -148,7 +147,7 @@ export default function AdminDashboard() {
           </div>
         </section>
 
-        {/* Quick Actions */}
+      
         <section className="management-section">
           <h2>Quick Actions</h2>
 

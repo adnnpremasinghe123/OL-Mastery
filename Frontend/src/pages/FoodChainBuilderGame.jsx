@@ -14,7 +14,7 @@ export default function FoodChainBuilderGame() {
   const [timeLeft, setTimeLeft] = useState(10);
   const [gameOver, setGameOver] = useState(false);
 
-  // ✅ Logged-in user
+ 
   const [user, setUser] = useState(null);
 
   const foodChains = [
@@ -63,7 +63,7 @@ export default function FoodChainBuilderGame() {
     setCurrentChain([]);
   };
 
-  // ✅ Save score using logged-in user and refresh page
+  
   const submitScore = async () => {
     if (!user) {
       alert("User not logged in");

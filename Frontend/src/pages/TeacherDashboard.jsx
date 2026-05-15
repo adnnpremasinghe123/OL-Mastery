@@ -16,12 +16,12 @@ export default function TeacherDashboard() {
 
   const [teacherName, setTeacherName] = useState("Teacher");
 
-  // Load user name from localStorage
+ 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
     if (!storedUser) {
-      navigate("/"); // If no user in localStorage → redirect to login
+      navigate("/"); 
       return;
     }
 
@@ -36,7 +36,7 @@ export default function TeacherDashboard() {
     }
   }, [navigate]);
 
-  // Navigation functions
+  
   const goToLeaderboard = () => navigate('/leaderboard');
   const goToQuizzes = () => navigate('/teacher/create-quiz');
   const goToResources = () => navigate('/resources');
@@ -44,7 +44,7 @@ export default function TeacherDashboard() {
   const goToProfile = () => navigate('/update-profile');
   const goToOnlineSession = () => navigate('/teacher/session');
 
-  // Logout
+ 
   const handleLogout = () => {
     localStorage.clear();
     navigate("/");

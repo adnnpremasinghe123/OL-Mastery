@@ -24,7 +24,7 @@ export default function PaymentPage() {
     phone: "",
   });
 
-  /* ---------------- LOAD SESSION ---------------- */
+  
   useEffect(() => {
 
     const loadSession = async () => {
@@ -60,7 +60,7 @@ export default function PaymentPage() {
 
   }, [sessionId]);
 
-  /* ---------------- PAYMENT ---------------- */
+
   const handlePay = async () => {
   const storedUser = localStorage.getItem("user");
   const userObj = storedUser ? JSON.parse(storedUser) : null;
@@ -111,7 +111,7 @@ export default function PaymentPage() {
     setLoading(false);
   }
 };
-  /* ---------------- PAYHERE ---------------- */
+ 
  useEffect(() => {
   const script = document.createElement("script");
   script.src = "https://www.payhere.lk/lib/payhere.js";
@@ -138,7 +138,7 @@ export default function PaymentPage() {
   document.body.appendChild(script);
 }, []);
 
-  /* ---------------- UI ---------------- */
+ 
 
   if (pageLoading) return <h3>Loading...</h3>;
 

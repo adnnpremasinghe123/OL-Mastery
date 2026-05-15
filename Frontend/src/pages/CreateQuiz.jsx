@@ -13,7 +13,7 @@ export default function CreateQuiz() {
   const [showQuizzes, setShowQuizzes] = useState(false);
   const [title, setTitle] = useState("");
 
-  // NEW STATES
+
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
 
@@ -22,9 +22,7 @@ export default function CreateQuiz() {
 
   const handleFileChange = (e) => setFile(e.target.files[0]);
 
-  // =============================
-  // EXTRACT QUESTIONS
-  // =============================
+  
   const extractQuestions = (text) => {
     const lines = text.split("\n").filter((l) => l.trim() !== "");
     let parsed = [];
@@ -35,20 +33,20 @@ export default function CreateQuiz() {
     lines.forEach((line, index) => {
       line = line.trim();
 
-      // TITLE
+     
       if (index === 0 || /^title\s*:/i.test(line)) {
         extractedTitle = line.replace(/^title\s*:/i, "").trim();
         return;
       }
 
-      // TIME
+     
       if (/^(Time|Duration)\s*:/i.test(line)) {
         const limit = parseInt(line.split(":")[1]?.trim());
         if (!isNaN(limit)) extractedTimeLimit = limit;
         return;
       }
 
-      // QUESTION
+  
       if (/^\d+\./.test(line)) {
         if (current) parsed.push(current);
         current = {
@@ -57,11 +55,11 @@ export default function CreateQuiz() {
           correctAnswer: "",
         };
       }
-      // OPTIONS
+   
       else if (/^[A-D][\).\s]/.test(line)) {
         current?.options.push(line.replace(/^[A-D][\).\s]*/, "").trim());
       }
-      // ANSWER
+      
       else if (line.toLowerCase().includes("answer")) {
         const key = line.split(":")[1]?.trim();
         const map = { A: 0, B: 1, C: 2, D: 3 };
@@ -78,9 +76,7 @@ export default function CreateQuiz() {
     setError("");
   };
 
-  // =============================
-  // FILE UPLOAD
-  // =============================
+
   const handleFileUpload = async () => {
     if (!file) return setError("Upload a file first");
 
@@ -115,14 +111,10 @@ export default function CreateQuiz() {
     }
   };
 
-  // =============================
-  // SHUFFLE
-  // =============================
+  
   const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
 
-  // =============================
-  // SAVE QUIZ
-  // =============================
+  
   const handleSaveQuiz = async () => {
     if (!startDate || !startTime) {
       return setError("Please select date and time");
@@ -157,9 +149,7 @@ export default function CreateQuiz() {
     }
   };
 
-  // =============================
-  // FETCH QUIZZES
-  // =============================
+  
   const handleShowQuizzes = async () => {
     try {
       const res = await axios.get("http://localhost:8081/api/quizzes/all");
@@ -171,9 +161,6 @@ export default function CreateQuiz() {
     }
   };
 
-  // =============================
-  // DELETE QUIZ
-  // =============================
   const handleDeleteQuiz = async (quizId) => {
     if (!window.confirm("Are you sure you want to delete this quiz?")) return;
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Students.css";
 
-const API_BASE = "http://localhost:8081/api/users"; // fetch all users
+const API_BASE = "http://localhost:8081/api/users"; 
 
 export default function Students() {
   const [students, setStudents] = useState([]);
@@ -74,7 +74,7 @@ export default function Students() {
     }
   };
 
-  // Filtered list based on search
+ 
   const filteredStudents = students.filter((s) =>
     s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     s.email.toLowerCase().includes(searchTerm.toLowerCase())
@@ -93,7 +93,7 @@ export default function Students() {
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
-      {/* Form for add/edit */}
+   
       <form
         className="student-form"
         onSubmit={editingStudent ? handleUpdateStudent : handleAddStudent}

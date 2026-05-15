@@ -26,7 +26,7 @@
   filter: drop-shadow(0 0 10px #3fdcff);
 }
 
-/* ===== Links ===== */
+
 .navbar-links {
   list-style: none;
   display: flex;
@@ -80,7 +80,7 @@
 
 
 
-/* CTA Button */
+
 .navbar-btn {
   padding: 8px 18px;
   background-color: #3fdcff;
@@ -96,7 +96,6 @@
   transform: translateY(-2px);
 }
 
-/* ===== Hamburger ===== */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -134,7 +133,7 @@
   }
 }
 
-/* ===== Responsive Design ===== */
+
 @media (max-width: 900px) {
   .hamburger {
     display: flex;

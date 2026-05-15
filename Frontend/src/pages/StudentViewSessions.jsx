@@ -15,7 +15,7 @@ export default function StudentViewSessions() {
     loadSessions();
   }, []);
 
-  /* ---------------- LOAD SESSIONS ---------------- */
+  
 
   const loadSessions = async () => {
     const res = await axios.get("http://localhost:8081/api/sessions");
@@ -27,7 +27,7 @@ export default function StudentViewSessions() {
     });
   };
 
-  /* ---------------- LOAD PAYMENTS PER SESSION ---------------- */
+ 
 
   const loadPaymentsBySession = async (sessionId) => {
     try {
@@ -44,7 +44,7 @@ export default function StudentViewSessions() {
     }
   };
 
-  /* ---------------- CHECK IF USER PAID ---------------- */
+ 
 const isPaid = (sessionId) => {
   const sessionPayments = payments[sessionId] || [];
 
@@ -56,7 +56,7 @@ const isPaid = (sessionId) => {
 };
  
 
-  /* ---------------- HANDLE PAY ---------------- */
+ 
 
   const handlePay = (session) => {
     localStorage.setItem("selectedSession", JSON.stringify(session));
@@ -66,7 +66,7 @@ const isPaid = (sessionId) => {
     });
   };
 
-  /* ---------------- FILTER ---------------- */
+ 
 
   const now = new Date();
 
@@ -77,7 +77,7 @@ const isPaid = (sessionId) => {
 
   const teachers = [...new Set(filteredSessions.map((s) => s.createdBy))];
 
-  /* ---------------- UI ---------------- */
+  
 
   return (
     <div className="sessions-container">

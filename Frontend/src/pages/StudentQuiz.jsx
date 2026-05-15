@@ -26,7 +26,7 @@ const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user")) || {};
 
-  /* ---------------- Load quizzes from API ---------------- */
+ 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (!storedUser) {
@@ -46,7 +46,7 @@ const [questionStartTime, setQuestionStartTime] = useState(Date.now());
     fetchQuizzes();
   }, [navigate]);
 
-  /* ---------------- Timer for exam ---------------- */
+ 
   useEffect(() => {
     if (!timeLeft || submitted) return;
 
@@ -64,7 +64,7 @@ const [questionStartTime, setQuestionStartTime] = useState(Date.now());
     return () => clearInterval(timer);
   }, [timeLeft, submitted]);
 
-  /* ---------------- Countdown for quiz start ---------------- */
+  
   useEffect(() => {
     if (!selectedQuiz || !selectedQuiz.startTime) return;
 
@@ -139,13 +139,12 @@ useEffect(() => {
   };
 }, [examStarted]);
 
-//fast answer detection
 useEffect(() => {
   if (!examStarted) return;
   setQuestionStartTime(Date.now());
 }, [currentQuestion, examStarted]);
 
-//full screen detection
+
 
 useEffect(() => {
   if (!examStarted) return;
@@ -169,7 +168,7 @@ useEffect(() => {
 
 
 
-  /* ---------------- Select Quiz ---------------- */
+
 const handleSelectQuiz = (quiz) => {
   const now = new Date();
   const quizStart = new Date(quiz.startTime);
@@ -192,12 +191,12 @@ const handleSelectQuiz = (quiz) => {
   }
 
   if (now > quizEnd) {
-    // Quiz already finished
+    
     alert("Sorry, this quiz has already ended.");
     return;
   }
 
-  // Quiz started but not finished → calculate remaining time
+ 
   const remainingSeconds = Math.floor((quizEnd - now) / 1000);
 
  setCheatingFlags({
@@ -215,9 +214,9 @@ const handleSelectQuiz = (quiz) => {
   
   setCountdown(null);
   setTimeLeft(remainingSeconds);
-  setExamStarted(true); // use remaining time
+  setExamStarted(true);
 };
-  /* ---------------- Submit Quiz ---------------- */
+  
   const handleSubmit = async () => {
     if (!selectedQuiz) return;
     let total = 0;
@@ -347,7 +346,7 @@ useEffect(() => {
 
   const q = selectedQuiz.questions[currentQuestion];
 
-  /* ================= EXAM / RESULT PAGE ================= */
+
   if (submitted) {
     return (
       <div className="result-box">
@@ -376,7 +375,7 @@ useEffect(() => {
     );
   }
 
-  /* ================= EXAM PAGE ================= */
+
   return (
     <div className="exam-container">
       <div className="exam-header">
